@@ -5,64 +5,50 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Lebenslauf-Generator · Shoriu</title>
-<meta name="description" content="KI-gestützter Lebenslauf-Generator von Shoriu."/>
+<meta name="description" content="KI-gestu&#776;tzter Lebenslauf-Generator von Shoriu."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+JP:wght@300;400&family=EB+Garamond:wght@400;700&family=Playfair+Display:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh}
-
-/* HEADER */
+body{background:#f5f5f0;font-family:"Cormorant Garamond",Georgia,serif;min-height:100vh}
 .site-header{background:#1a1a2e;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px}
-.site-header .k{font-family:‘Noto Serif JP’,serif;font-size:24px;color:#e8a0a0}
+.site-header .k{font-family:"Noto Serif JP",serif;font-size:24px;color:#e8a0a0}
 .site-header .t{font-size:15px;letter-spacing:.08em;font-weight:300}
 .site-header .s{font-size:10px;color:#8a8a8a;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
-
-/* PROGRESS */
 .progress{display:flex;gap:3px;max-width:660px;margin:28px auto 0;padding:0 16px}
-.prog-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.prog-dot{width:32px;height:32px;border-radius:50%;background:#e0ddd8;color:#8a8a8a;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:‘Noto Serif JP’,serif;transition:all .3s;cursor:default;flex-shrink:0}
+.prog-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default}
+.prog-dot{width:32px;height:32px;border-radius:50%;background:#e0ddd8;color:#8a8a8a;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:"Noto Serif JP",serif;transition:all .3s}
 .prog-dot.done{background:#c47a7a;color:#fff;cursor:pointer}
 .prog-dot.active{background:#e8a0a0;color:#fff;box-shadow:0 0 0 3px #fdf0f0}
 .prog-lbl{font-size:9px;color:#8a8a8a;text-align:center}
 .prog-lbl.active{color:#1a1a2e}
-
-/* FORM */
 .form-wrap{max-width:660px;margin:20px auto 0;padding:0 16px 40px}
 .card{background:#fff;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid #ede8e3}
 .card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
-.card-kanji{font-family:‘Noto Serif JP’,serif;font-size:36px;color:#e8a0a0;line-height:1}
+.card-kanji{font-family:"Noto Serif JP",serif;font-size:36px;color:#e8a0a0;line-height:1}
 .card-title{font-size:20px;font-weight:300;color:#1a1a2e}
 .card-step{font-size:11px;color:#8a8a8a;margin-top:2px}
 .fields{display:flex;flex-direction:column;gap:16px}
-
-/* FIELDS */
 .fw label{display:block;font-size:10px;font-weight:600;color:#8a8a8a;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase}
-.fw input,.fw textarea,.fw select{width:100%;padding:10px 14px;border:1.5px solid #e0ddd8;border-radius:8px;font-size:14px;font-family:‘Cormorant Garamond’,Georgia,serif;background:#fff;color:#1a1a2e;outline:none;transition:border-color .2s}
+.fw input,.fw textarea,.fw select{width:100%;padding:10px 14px;border:1.5px solid #e0ddd8;border-radius:8px;font-size:14px;font-family:"Cormorant Garamond",Georgia,serif;background:#fff;color:#1a1a2e;outline:none;transition:border-color .2s}
 .fw input:focus,.fw textarea:focus,.fw select:focus{border-color:#e8a0a0}
 .fw textarea{resize:vertical;line-height:1.6}
-
-/* REPEAT */
 .rep-block{background:#fdf0f0;border-radius:12px;padding:16px;border:1px solid #f0d8d8;position:relative;margin-bottom:12px}
 .rep-rm{position:absolute;top:10px;right:10px;background:none;border:none;color:#8a8a8a;cursor:pointer;font-size:18px;line-height:1;padding:0}
 .rep-inner{display:flex;flex-direction:column;gap:12px}
-.rep-add{background:none;border:1.5px dashed #e8a0a0;color:#e8a0a0;padding:10px;border-radius:8px;cursor:pointer;font-size:14px;font-family:‘Cormorant Garamond’,serif;width:100%;margin-top:4px}
-
-/* NAV */
+.rep-add{background:none;border:1.5px dashed #e8a0a0;color:#e8a0a0;padding:10px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif;width:100%;margin-top:4px}
 .nav{display:flex;justify-content:space-between;margin-top:20px}
-.btn-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-family:‘Cormorant Garamond’,serif}
+.btn-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif}
 .btn-ghost:disabled{color:#ccc;cursor:default}
-.btn-sakura{background:#e8a0a0;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:‘Cormorant Garamond’,serif;letter-spacing:.04em}
-.btn-dark{background:#1a1a2e;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:‘Cormorant Garamond’,serif;letter-spacing:.04em;display:inline-flex;align-items:center;gap:9px}
+.btn-sakura{background:#e8a0a0;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em}
+.btn-dark{background:#1a1a2e;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em;display:inline-flex;align-items:center;gap:9px}
 .btn-dark:disabled{background:#8a8a8a;cursor:default}
-.btn-sm-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-family:‘Cormorant Garamond’,serif}
-.btn-sm-sakura{background:none;border:1.5px solid #e8a0a0;color:#e8a0a0;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-family:‘Cormorant Garamond’,serif}
-.btn-sm-dark{background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-family:‘Cormorant Garamond’,serif}
+.btn-sm-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
+.btn-sm-sakura{background:none;border:1.5px solid #e8a0a0;color:#e8a0a0;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
+.btn-sm-dark{background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
 .err{color:#c00;text-align:center;margin-top:14px;font-size:13px;display:none}
 .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top:2px solid #fff;border-radius:50%;animation:spin .8s linear infinite}
-
-/* RESULT */
 .result-wrap{max-width:1080px;margin:0 auto;padding:28px 16px 40px;display:none}
 .result-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
 .result-title{font-size:20px;font-weight:300;color:#1a1a2e}
@@ -70,8 +56,6 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
 .result-actions{display:flex;gap:8px;flex-wrap:wrap}
 .result-grid{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start}
 @media(max-width:600px){.result-grid{grid-template-columns:1fr}}
-
-/* TEMPLATE PICKER */
 .tpl-label{font-size:10px;font-weight:600;color:#8a8a8a;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
 .tpl-list{display:flex;flex-direction:column;gap:8px}
 @media(max-width:600px){.tpl-list{flex-direction:row;flex-wrap:wrap}}
@@ -86,19 +70,13 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
 .tpl-l{height:1px;margin-bottom:5px}
 .tpl-r{height:3px;border-radius:2px;margin-bottom:3px;background:#ccc}
 .tpl-foot{padding:8px 10px;background:#fff}
-.tpl-name{font-size:12px;font-weight:600;font-family:‘Cormorant Garamond’,serif}
+.tpl-name{font-size:12px;font-weight:600;font-family:"Cormorant Garamond",serif}
 .tpl-desc{font-size:10px;color:#8a8a8a}
-
-/* CV PREVIEW BOX */
 .cv-box{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,.08);border:1px solid #ede8e3}
 .cv-inner{padding:48px}
-
-/* FOOTER */
 .site-footer{text-align:center;margin-top:16px;font-size:11px;color:#8a8a8a;letter-spacing:.06em}
-.site-footer .k{font-family:‘Noto Serif JP’,serif;color:#e8a0a0}
-
-/* ── CV THEMES ── */
-.cv-k{font-family:‘EB Garamond’,Georgia,serif;color:#1a1a1a;line-height:1.7}
+.site-footer .k{font-family:"Noto Serif JP",serif;color:#e8a0a0}
+.cv-k{font-family:"EB Garamond",Georgia,serif;color:#1a1a1a;line-height:1.7}
 .cv-k .ch{border-bottom:3px double #2c3e50;padding-bottom:16px;margin-bottom:22px}
 .cv-k .cn{font-size:30px;font-weight:700;letter-spacing:.04em;color:#2c3e50}
 .cv-k .cp{font-size:13px;color:#666;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
@@ -107,17 +85,16 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
 .cv-k .csh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-bottom:10px}
 .cv-k .cj{font-weight:700;font-size:15px;color:#1a1a1a;margin-top:10px}
 .cv-k .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
-.cv-k .cb::before{content:’·’;position:absolute;left:0;color:#2c3e50}
+.cv-k .cb::before{content:"·";position:absolute;left:0;color:#2c3e50}
 .cv-k .ct{font-size:13px;color:#444;line-height:1.7}
-
-.cv-s{font-family:‘Cormorant Garamond’,Georgia,serif;color:#1a1a2e}
+.cv-s{font-family:"Cormorant Garamond",Georgia,serif;color:#1a1a2e}
 .cv-s .ch{display:flex;margin-bottom:26px}
 .cv-s .cbar{width:4px;background:linear-gradient(to bottom,#e8a0a0,#c47a7a);border-radius:3px;margin-right:18px;flex-shrink:0}
 .cv-s .chi{flex:1}
 .cv-s .cn{font-size:32px;font-weight:300;letter-spacing:.05em;line-height:1.1}
 .cv-s .cp{font-size:12px;color:#e8a0a0;letter-spacing:.15em;text-transform:uppercase;margin-top:5px;font-weight:500}
 .cv-s .cc{font-size:12px;color:#8a8a8a;margin-top:7px}
-.cv-s .cd{font-family:‘Noto Serif JP’,serif;font-size:32px;color:#f0d8d8;align-self:center;padding-left:12px}
+.cv-s .cd{font-family:"Noto Serif JP",serif;font-size:32px;color:#f0d8d8;align-self:center;padding-left:12px}
 .cv-s .cs{margin-bottom:20px}
 .cv-s .csh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .cv-s .cl1{height:1px;width:18px;background:#e8a0a0}
@@ -125,10 +102,9 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
 .cv-s .cl2{flex:1;height:1px;background:#f0d8d8}
 .cv-s .cj{font-weight:600;font-size:15px;color:#1a1a2e;margin-top:10px}
 .cv-s .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
-.cv-s .cb::before{content:‘◦’;position:absolute;left:0;color:#e8a0a0}
+.cv-s .cb::before{content:"◦";position:absolute;left:0;color:#e8a0a0}
 .cv-s .ct{font-size:13px;color:#444;line-height:1.7}
-
-.cv-e{font-family:‘Playfair Display’,Georgia,serif;color:#1a1a1a}
+.cv-e{font-family:"Playfair Display",Georgia,serif;color:#1a1a1a}
 .cv-e .ch{background:#1a3a5c;color:#fff;padding:30px 32px;margin:-48px -48px 28px}
 .cv-e .cn{font-size:28px;font-weight:700;letter-spacing:.05em}
 .cv-e .cp{font-size:11px;color:#b8943f;letter-spacing:.22em;text-transform:uppercase;margin-top:6px}
@@ -139,39 +115,34 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
 .cv-e .cl{flex:1;height:1px;background:#b8943f}
 .cv-e .cj{font-weight:700;font-size:14px;color:#1a3a5c;margin-top:10px}
 .cv-e .cb{font-size:13px;padding-left:16px;position:relative;color:#333;margin-bottom:4px;line-height:1.65}
-.cv-e .cb::before{content:‘▸’;position:absolute;left:0;color:#b8943f}
+.cv-e .cb::before{content:"▸";position:absolute;left:0;color:#b8943f}
 .cv-e .ct{font-size:13px;color:#333;line-height:1.7}
-
-.cv-m{font-family:‘DM Serif Display’,Georgia,serif;color:#111}
+.cv-m{font-family:"DM Serif Display",Georgia,serif;color:#111}
 .cv-m .ch{margin-bottom:30px}
 .cv-m .cn{font-size:34px;font-weight:400;letter-spacing:-.01em;line-height:1}
-.cv-m .cp{font-size:12px;color:#888;letter-spacing:.08em;margin-top:8px;font-family:‘DM Sans’,sans-serif}
-.cv-m .cc{font-size:12px;color:#bbb;margin-top:5px;font-family:‘DM Sans’,sans-serif}
+.cv-m .cp{font-size:12px;color:#888;letter-spacing:.08em;margin-top:8px;font-family:"DM Sans",sans-serif}
+.cv-m .cc{font-size:12px;color:#bbb;margin-top:5px;font-family:"DM Sans",sans-serif}
 .cv-m .cs{margin-bottom:22px;display:grid;grid-template-columns:110px 1fr;gap:0 20px}
-.cv-m .csh{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;padding-top:3px;font-family:‘DM Sans’,sans-serif;line-height:1.4}
+.cv-m .csh{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;padding-top:3px;font-family:"DM Sans",sans-serif;line-height:1.4}
 .cv-m .cbody{border-left:1px solid #ececec;padding-left:20px}
 .cv-m .cj{font-weight:700;font-size:14px;color:#111;margin-top:8px}
-.cv-m .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65;font-family:‘DM Sans’,sans-serif}
-.cv-m .cb::before{content:’–’;position:absolute;left:0;color:#ccc}
-.cv-m .ct{font-size:13px;color:#555;line-height:1.7;font-family:‘DM Sans’,sans-serif}
-
+.cv-m .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65;font-family:"DM Sans",sans-serif}
+.cv-m .cb::before{content:"–";position:absolute;left:0;color:#ccc}
+.cv-m .ct{font-size:13px;color:#555;line-height:1.7;font-family:"DM Sans",sans-serif}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.fadein{animation:fadeIn .3s ease}
 </style>
-
 </head>
 <body>
 
 <div class="site-header">
-  <span class="k">書流</span>
-  <div><div class="t">Lebenslauf-Generator</div><div class="s">Shoriu · KI-gestützt</div></div>
+  <span class="k">&#26360;&#27969;</span>
+  <div><div class="t">Lebenslauf-Generator</div><div class="s">Shoriu &middot; KI-gest&uuml;tzt</div></div>
 </div>
 
 <div class="progress" id="progress"></div>
 
 <div class="form-wrap" id="form-wrap">
-  <div class="card fadein">
+  <div class="card">
     <div class="card-head">
       <span class="card-kanji" id="ckanji"></span>
       <div><div class="card-title" id="ctitle"></div><div class="card-step" id="cstep"></div></div>
@@ -179,467 +150,490 @@ body{background:#f5f5f0;font-family:'Cormorant Garamond',Georgia,serif;min-heigh
     <div class="fields" id="fields"></div>
   </div>
   <div class="nav">
-    <button class="btn-ghost" id="btn-back">← Zurück</button>
-    <button class="btn-sakura" id="btn-next">Weiter →</button>
+    <button class="btn-ghost" id="btn-back">&#8592; Zur&uuml;ck</button>
+    <button class="btn-sakura" id="btn-next">Weiter &#8594;</button>
   </div>
   <div class="err" id="err"></div>
 </div>
 
 <div class="result-wrap" id="result-wrap">
   <div class="result-top">
-    <div><div class="result-title">Ihr Lebenslauf</div><div class="result-sub">Template wählen · PDF exportieren</div></div>
+    <div><div class="result-title">Ihr Lebenslauf</div><div class="result-sub">Template w&auml;hlen &middot; PDF exportieren</div></div>
     <div class="result-actions">
-      <button class="btn-sm-ghost" id="btn-edit">← Bearbeiten</button>
-      <button class="btn-sm-sakura" id="btn-regen">↺ Neu</button>
-      <button class="btn-sm-dark" id="btn-print">⎙ PDF / Drucken</button>
+      <button class="btn-sm-ghost" id="btn-edit">&#8592; Bearbeiten</button>
+      <button class="btn-sm-sakura" id="btn-regen">&#8634; Neu</button>
+      <button class="btn-sm-dark" id="btn-print">&#8679; PDF / Drucken</button>
     </div>
   </div>
   <div class="result-grid">
     <div><div class="tpl-label">Template</div><div class="tpl-list" id="tpl-list"></div></div>
     <div class="cv-box"><div class="cv-inner" id="cv-inner"></div></div>
   </div>
-  <div class="site-footer"><span class="k">書流</span> Shoriu</div>
+  <div class="site-footer"><span class="k">&#26360;&#27969;</span> Shoriu</div>
 </div>
 
 <script>
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener("DOMContentLoaded", function() {
 
-  // ── Config ──────────────────────────────────────────────────────────────────
   var STEPS = [
-    {id:'personal', kanji:'個', label:'Persönliches', fields:[
-      {key:'name',     label:'Vollständiger Name',            ph:'Max Mustermann',           type:'text'},
-      {key:'title',    label:'Zielposition',                  ph:'Senior Logistikleiter',    type:'text'},
-      {key:'email',    label:'E-Mail',                        ph:'max@beispiel.at',          type:'email'},
-      {key:'phone',    label:'Telefon',                       ph:'+43 660 123 456',          type:'text'},
-      {key:'location', label:'Wohnort',                       ph:'Altach, Vorarlberg',       type:'text'},
-      {key:'linkedin', label:'LinkedIn / Website (optional)', ph:'linkedin.com/in/max',      type:'text'},
+    {id:"personal", kanji:"&#20491;", label:"Pers&ouml;nliches", fields:[
+      {key:"name",     label:"Vollst&auml;ndiger Name",            ph:"Max Mustermann",          type:"text"},
+      {key:"title",    label:"Zielposition",                       ph:"Senior Logistikleiter",   type:"text"},
+      {key:"email",    label:"E-Mail",                             ph:"max@beispiel.at",         type:"email"},
+      {key:"phone",    label:"Telefon",                            ph:"+43 660 123 456",         type:"text"},
+      {key:"location", label:"Wohnort",                            ph:"Altach, Vorarlberg",      type:"text"},
+      {key:"linkedin", label:"LinkedIn / Website (optional)",      ph:"linkedin.com/in/max",     type:"text"}
     ]},
-    {id:'summary', kanji:'志', label:'Über mich', fields:[
-      {key:'summary', label:'Kurzbeschreibung & Karriereziele', ph:'Erfahrener Logistikprofi mit 8 Jahren Erfahrung...', type:'textarea', rows:5},
+    {id:"summary", kanji:"&#24535;", label:"&Uuml;ber mich", fields:[
+      {key:"summary", label:"Kurzbeschreibung &amp; Karriereziele", ph:"Erfahrener Logistikprofi mit 8 Jahren Erfahrung...", type:"textarea", rows:5}
     ]},
-    {id:'experience', kanji:'歴', label:'Erfahrung', rep:true, fields:[
-      {key:'company',     label:'Unternehmen',     ph:'medmix Switzerland AG',   type:'text'},
-      {key:'role',        label:'Position',         ph:'Teamleader Logistik',     type:'text'},
-      {key:'period',      label:'Zeitraum',         ph:'März 2020 – heute',       type:'text'},
-      {key:'description', label:'Aufgaben & Erfolge', ph:'Leitung eines Teams, Reduktion der Fehlerquote um 30%...', type:'textarea', rows:3},
+    {id:"experience", kanji:"&#27508;", label:"Erfahrung", rep:true, fields:[
+      {key:"company",     label:"Unternehmen",      ph:"medmix Switzerland AG",  type:"text"},
+      {key:"role",        label:"Position",          ph:"Teamleader Logistik",    type:"text"},
+      {key:"period",      label:"Zeitraum",          ph:"M&auml;rz 2020 &ndash; heute", type:"text"},
+      {key:"description", label:"Aufgaben &amp; Erfolge", ph:"Leitung eines Teams, Reduktion der Fehlerquote um 30%...", type:"textarea", rows:3}
     ]},
-    {id:'education', kanji:'学', label:'Ausbildung', rep:true, fields:[
-      {key:'institution', label:'Institution',             ph:'HTL Rankweil',                     type:'text'},
-      {key:'degree',      label:'Abschluss / Studiengang', ph:'Matura, Fachrichtung Elektronik',  type:'text'},
-      {key:'period',      label:'Zeitraum',                ph:'2010 – 2015',                      type:'text'},
+    {id:"education", kanji:"&#23398;", label:"Ausbildung", rep:true, fields:[
+      {key:"institution", label:"Institution",              ph:"HTL Rankweil",                    type:"text"},
+      {key:"degree",      label:"Abschluss / Studiengang",  ph:"Matura, Fachrichtung Elektronik", type:"text"},
+      {key:"period",      label:"Zeitraum",                 ph:"2010 &ndash; 2015",               type:"text"}
     ]},
-    {id:'skills', kanji:'技', label:'Fähigkeiten', fields:[
-      {key:'technical', label:'Fachliche Kenntnisse', ph:'SAP WM, MS Excel, Lean Management',         type:'textarea', rows:2},
-      {key:'soft',      label:'Soft Skills',           ph:'Teamführung, Kommunikation, Problemlösung', type:'textarea', rows:2},
-      {key:'languages', label:'Sprachen',              ph:'Deutsch (Muttersprache), Englisch (B2)',    type:'textarea', rows:2},
+    {id:"skills", kanji:"&#25216;", label:"F&auml;higkeiten", fields:[
+      {key:"technical", label:"Fachliche Kenntnisse", ph:"SAP WM, MS Excel, Lean Management",          type:"textarea", rows:2},
+      {key:"soft",      label:"Soft Skills",           ph:"Teamf&uuml;hrung, Kommunikation",            type:"textarea", rows:2},
+      {key:"languages", label:"Sprachen",              ph:"Deutsch (Muttersprache), Englisch (B2)",     type:"textarea", rows:2}
     ]},
-    {id:'extras', kanji:'他', label:'Weiteres', fields:[
-      {key:'certifications', label:'Zertifikate (optional)',  ph:'Lean Six Sigma Yellow Belt',       type:'textarea', rows:2},
-      {key:'hobbies',        label:'Interessen (optional)',   ph:'Softwareentwicklung, Japanische Kultur', type:'textarea', rows:2},
-      {key:'tone',     label:'Ton',     type:'select', opts:['Professionell & formal','Modern & direkt','Kreativ & persönlich']},
-      {key:'language', label:'Sprache', type:'select', opts:['Deutsch','Englisch']},
-    ]},
+    {id:"extras", kanji:"&#20182;", label:"Weiteres", fields:[
+      {key:"certifications", label:"Zertifikate (optional)",  ph:"Lean Six Sigma Yellow Belt", type:"textarea", rows:2},
+      {key:"hobbies",        label:"Interessen (optional)",   ph:"Softwareentwicklung, Japanische Kultur", type:"textarea", rows:2},
+      {key:"tone",     label:"Ton",     type:"select", opts:["Professionell & formal","Modern & direkt","Kreativ & persönlich"]},
+      {key:"language", label:"Sprache", type:"select", opts:["Deutsch","Englisch"]}
+    ]}
   ];
 
   var TPLS = [
-    {id:'sakura',    name:'Sakura',    desc:'Elegant & modern',  acc:'#e8a0a0', bg:'#fdf8f8', h:'#e8a0a0', ln:'#f0d8d8'},
-    {id:'klassisch', name:'Klassisch', desc:'Zeitlos & bewährt', acc:'#2c3e50', bg:'#f8f7f5', h:'#2c3e50', ln:'#2c3e50'},
-    {id:'executive', name:'Executive', desc:'Senior & Führung',  acc:'#1a3a5c', bg:'#f0f4f8', h:'#1a3a5c', ln:'#b8943f', dark:true},
-    {id:'minimal',   name:'Minimal',   desc:'Tech & Design',     acc:'#444',    bg:'#fafafa', h:'#444',    ln:'#e8e8e8'},
+    {id:"sakura",    name:"Sakura",    desc:"Elegant & modern",  acc:"#e8a0a0", bg:"#fdf8f8", h:"#e8a0a0", ln:"#f0d8d8", sak:true},
+    {id:"klassisch", name:"Klassisch", desc:"Zeitlos & bew&auml;hrt", acc:"#2c3e50", bg:"#f8f7f5", h:"#2c3e50", ln:"#2c3e50"},
+    {id:"executive", name:"Executive", desc:"Senior & F&uuml;hrung",  acc:"#1a3a5c", bg:"#f0f4f8", h:"#1a3a5c", ln:"#b8943f", dark:true},
+    {id:"minimal",   name:"Minimal",   desc:"Tech & Design",     acc:"#444",    bg:"#fafafa", h:"#444",    ln:"#e8e8e8"}
   ];
 
-  // ── State ───────────────────────────────────────────────────────────────────
   var step = 0;
-  var tpl  = 'sakura';
-  var md   = '';
+  var tpl  = "sakura";
+  var md   = "";
+
   var data = {
-    personal:   {name:'',title:'',email:'',phone:'',location:'',linkedin:''},
-    summary:    {summary:''},
-    experience: [{company:'',role:'',period:'',description:''}],
-    education:  [{institution:'',degree:'',period:''}],
-    skills:     {technical:'',soft:'',languages:''},
-    extras:     {certifications:'',hobbies:'',tone:'Professionell & formal',language:'Deutsch'},
+    personal:   {name:"",title:"",email:"",phone:"",location:"",linkedin:""},
+    summary:    {summary:""},
+    experience: [{company:"",role:"",period:"",description:""}],
+    education:  [{institution:"",degree:"",period:""}],
+    skills:     {technical:"",soft:"",languages:""},
+    extras:     {certifications:"",hobbies:"",tone:"Professionell & formal",language:"Deutsch"}
   };
 
-  // ── DOM refs ─────────────────────────────────────────────────────────────────
-  var elProgress  = document.getElementById('progress');
-  var elFormWrap  = document.getElementById('form-wrap');
-  var elResultWrap= document.getElementById('result-wrap');
-  var elFields    = document.getElementById('fields');
-  var elKanji     = document.getElementById('ckanji');
-  var elTitle     = document.getElementById('ctitle');
-  var elStepNum   = document.getElementById('cstep');
-  var elBack      = document.getElementById('btn-back');
-  var elNext      = document.getElementById('btn-next');
-  var elErr       = document.getElementById('err');
-  var elTplList   = document.getElementById('tpl-list');
-  var elCVInner   = document.getElementById('cv-inner');
+  var elProgress   = document.getElementById("progress");
+  var elFormWrap   = document.getElementById("form-wrap");
+  var elResultWrap = document.getElementById("result-wrap");
+  var elFields     = document.getElementById("fields");
+  var elKanji      = document.getElementById("ckanji");
+  var elTitle      = document.getElementById("ctitle");
+  var elStepNum    = document.getElementById("cstep");
+  var elBack       = document.getElementById("btn-back");
+  var elNext       = document.getElementById("btn-next");
+  var elErr        = document.getElementById("err");
+  var elTplList    = document.getElementById("tpl-list");
+  var elCVInner    = document.getElementById("cv-inner");
 
-  document.getElementById('btn-edit').onclick  = function(){ showForm(); };
-  document.getElementById('btn-regen').onclick = function(){ generate(); };
-  document.getElementById('btn-print').onclick = function(){ printCV(); };
-  elBack.onclick = function(){ save(); if(step>0){ renderStep(step-1); }};
-  elNext.onclick = function(){ save(); if(step<STEPS.length-1){ renderStep(step+1); } else { generate(); }};
+  document.getElementById("btn-edit").onclick  = showForm;
+  document.getElementById("btn-regen").onclick = generate;
+  document.getElementById("btn-print").onclick = printCV;
+  elBack.onclick = function() { save(); if (step > 0) renderStep(step - 1); };
+  elNext.onclick = function() { save(); if (step < STEPS.length - 1) renderStep(step + 1); else generate(); };
 
-  // ── Progress ─────────────────────────────────────────────────────────────────
   function buildProgress() {
-    var html = '';
-    for (var i=0; i<STEPS.length; i++) {
-      html += '<div class="prog-item" data-i="'+i+'">'
-            + '<div class="prog-dot" id="pd'+i+'">'+STEPS[i].kanji+'</div>'
-            + '<div class="prog-lbl" id="pl'+i+'">'+STEPS[i].label+'</div>'
-            + '</div>';
+    var html = "";
+    for (var i = 0; i < STEPS.length; i++) {
+      html += "<div class=\"prog-item\" id=\"pi" + i + "\"><div class=\"prog-dot\" id=\"pd" + i + "\">" + STEPS[i].kanji + "</div><div class=\"prog-lbl\" id=\"pl" + i + "\">" + STEPS[i].label + "</div></div>";
     }
     elProgress.innerHTML = html;
-    for (var j=0; j<STEPS.length; j++) {
-      (function(idx){
-        document.querySelector('.prog-item[data-i="'+idx+'"]').onclick = function(){
-          if(idx < step){ save(); renderStep(idx); }
-        };
+    for (var j = 0; j < STEPS.length; j++) {
+      (function(idx) {
+        var el = document.getElementById("pi" + idx);
+        if (el) el.onclick = function() { if (idx < step) { save(); renderStep(idx); } };
       })(j);
     }
   }
 
   function updateProgress() {
-    for (var i=0; i<STEPS.length; i++) {
-      var dot = document.getElementById('pd'+i);
-      var lbl = document.getElementById('pl'+i);
+    for (var i = 0; i < STEPS.length; i++) {
+      var dot = document.getElementById("pd" + i);
+      var lbl = document.getElementById("pl" + i);
       if (!dot || !lbl) continue;
-      dot.className = 'prog-dot' + (i===step?' active':i<step?' done':'');
-      lbl.className = 'prog-lbl' + (i===step?' active':'');
+      dot.className = "prog-dot" + (i === step ? " active" : i < step ? " done" : "");
+      lbl.className = "prog-lbl" + (i === step ? " active" : "");
     }
   }
 
-  // ── Render step ──────────────────────────────────────────────────────────────
   function renderStep(n) {
     step = n;
     var s = STEPS[step];
-    elKanji.textContent   = s.kanji;
-    elTitle.textContent   = s.label;
-    elStepNum.textContent = 'Schritt '+(step+1)+' von '+STEPS.length;
+    elKanji.innerHTML   = s.kanji;
+    elTitle.innerHTML   = s.label;
+    elStepNum.textContent = "Schritt " + (step + 1) + " von " + STEPS.length;
     updateProgress();
-    elBack.disabled = (step===0);
-    if (step===STEPS.length-1) {
-      elNext.className = 'btn-dark';
-      elNext.innerHTML = '✦ Lebenslauf erstellen';
+    elBack.disabled = (step === 0);
+    if (step === STEPS.length - 1) {
+      elNext.className   = "btn-dark";
+      elNext.textContent = "\u2726 Lebenslauf erstellen";
     } else {
-      elNext.className = 'btn-sakura';
-      elNext.textContent = 'Weiter →';
+      elNext.className   = "btn-sakura";
+      elNext.textContent = "Weiter \u2192";
     }
     elNext.disabled = false;
-    if (s.rep) { renderRepeat(s); } else { renderFlat(s); }
+    if (s.rep) renderRepeat(s); else renderFlat(s);
   }
 
-  function renderFlat(s) {
-    var html = '';
-    var d = data[s.id];
-    for (var i=0; i<s.fields.length; i++) {
-      var f = s.fields[i];
-      html += '<div class="fw"><label>'+f.label+'</label>'+fieldHTML(f, d[f.key]||'')+'</div>';
-    }
-    elFields.innerHTML = html;
-  }
-
-  function renderRepeat(s) {
-    var items = data[s.id];
-    var html  = '<div id="rep-list">';
-    for (var i=0; i<items.length; i++) { html += repItem(s, items[i], i); }
-    html += '</div><button class="rep-add" id="rep-add-btn">+ Eintrag hinzufügen</button>';
-    elFields.innerHTML = html;
-    document.getElementById('rep-add-btn').onclick = function(){ addRep(s); };
-    bindRepRemove(s);
-  }
-
-  function repItem(s, item, idx) {
-    var canRm = data[s.id].length > 1;
-    var html  = '<div class="rep-block" data-idx="'+idx+'">';
-    if (canRm) html += '<button class="rep-rm" data-ridx="'+idx+'">×</button>';
-    html += '<div class="rep-inner">';
-    for (var i=0; i<s.fields.length; i++) {
-      var f = s.fields[i];
-      html += '<div class="fw"><label>'+f.label+'</label>'+repFieldHTML(f, item[f.key]||'', idx)+'</div>';
-    }
-    html += '</div></div>';
-    return html;
-  }
-
-  function bindRepRemove(s) {
-    var btns = document.querySelectorAll('.rep-rm');
-    for (var i=0; i<btns.length; i++) {
-      (function(btn){
-        btn.onclick = function(){
-          var idx = parseInt(btn.getAttribute('data-ridx'));
-          data[s.id].splice(idx, 1);
-          renderRepeat(s);
-        };
-      })(btns[i]);
-    }
-  }
-
-  function addRep(s) {
-    saveRepeat(s);
-    var blank = {};
-    for (var i=0; i<s.fields.length; i++) blank[s.fields[i].key] = '';
-    data[s.id].push(blank);
-    renderRepeat(s);
+  function e(v) {
+    return (v || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
   function fieldHTML(f, val) {
-    var esc = function(v){ return (v||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); };
-    if (f.type==='textarea') return '<textarea rows="'+(f.rows||3)+'" placeholder="'+esc(f.ph||'')+'" data-key="'+f.key+'">'+esc(val)+'</textarea>';
+    if (f.type === "textarea") {
+      return "<textarea rows=\"" + (f.rows || 3) + "\" placeholder=\"" + e(f.ph || "") + "\" data-key=\"" + f.key + "\">" + e(val) + "</textarea>";
 
 ```
-if (f.type==='select') {
-  var o='';
-  for(var i=0;i<f.opts.length;i++) o+='<option'+(f.opts[i]===val?' selected':'')+'>'+f.opts[i]+'</option>';
-  return '<select data-key="'+f.key+'">'+o+'</select>';
 }
-return '<input type="'+f.type+'" placeholder="'+esc(f.ph||'')+'" value="'+esc(val)+'" data-key="'+f.key+'"/>';
+if (f.type === "select") {
+  var o = "";
+  for (var i = 0; i < f.opts.length; i++) {
+    o += "<option" + (f.opts[i] === val ? " selected" : "") + ">" + f.opts[i] + "</option>";
+  }
+  return "<select data-key=\"" + f.key + "\">" + o + "</select>";
+}
+return "<input type=\"" + f.type + "\" placeholder=\"" + e(f.ph || "") + "\" value=\"" + e(val) + "\" data-key=\"" + f.key + "\"/>";
 ```
 
 }
 
 function repFieldHTML(f, val, idx) {
-var esc = function(v){ return (v||’’).replace(/&/g,’&’).replace(/”/g,’"’); };
-if (f.type===‘textarea’) return ‘<textarea rows="'+(f.rows||3)+'" placeholder="'+esc(f.ph||'')+'" data-key="'+f.key+'" data-idx="'+idx+'">’+esc(val)+’</textarea>’;
-return ‘<input type="'+f.type+'" placeholder="'+esc(f.ph||'')+'" value="'+esc(val)+'" data-key="'+f.key+'" data-idx="'+idx+'"/>’;
+if (f.type === “textarea”) {
+return “<textarea rows="” + (f.rows || 3) + “" placeholder="” + e(f.ph || “”) + “" data-key="” + f.key + “" data-idx="” + idx + “">” + e(val) + “</textarea>”;
+}
+return “<input type="” + f.type + “" placeholder="” + e(f.ph || “”) + “" value="” + e(val) + “" data-key="” + f.key + “" data-idx="” + idx + “"/>”;
 }
 
-// ── Save ─────────────────────────────────────────────────────────────────────
+function renderFlat(s) {
+var html = “”;
+var d = data[s.id];
+for (var i = 0; i < s.fields.length; i++) {
+var f = s.fields[i];
+html += “<div class="fw"><label>” + f.label + “</label>” + fieldHTML(f, d[f.key] || “”) + “</div>”;
+}
+elFields.innerHTML = html;
+}
+
+function renderRepeat(s) {
+var items = data[s.id];
+var html = “<div id="rep-list">”;
+for (var i = 0; i < items.length; i++) html += repItemHTML(s, items[i], i);
+html += “</div><button class="rep-add" id="rep-add-btn">+ Eintrag hinzufügen</button>”;
+elFields.innerHTML = html;
+document.getElementById(“rep-add-btn”).onclick = function() { addRep(s); };
+bindRepRemove(s);
+}
+
+function repItemHTML(s, item, idx) {
+var canRm = data[s.id].length > 1;
+var html  = “<div class="rep-block" data-idx="” + idx + “">”;
+if (canRm) html += “<button class="rep-rm" data-ridx="” + idx + “">×</button>”;
+html += “<div class="rep-inner">”;
+for (var i = 0; i < s.fields.length; i++) {
+var f = s.fields[i];
+html += “<div class="fw"><label>” + f.label + “</label>” + repFieldHTML(f, item[f.key] || “”, idx) + “</div>”;
+}
+html += “</div></div>”;
+return html;
+}
+
+function bindRepRemove(s) {
+var btns = document.querySelectorAll(”.rep-rm”);
+for (var i = 0; i < btns.length; i++) {
+(function(btn) {
+btn.onclick = function() {
+saveRepeat(s);
+var idx = parseInt(btn.getAttribute(“data-ridx”));
+data[s.id].splice(idx, 1);
+renderRepeat(s);
+};
+})(btns[i]);
+}
+}
+
+function addRep(s) {
+saveRepeat(s);
+var blank = {};
+for (var i = 0; i < s.fields.length; i++) blank[s.fields[i].key] = “”;
+data[s.id].push(blank);
+renderRepeat(s);
+}
+
 function save() {
 var s = STEPS[step];
-if (s.rep) { saveRepeat(s); } else { saveFlat(s); }
+if (s.rep) saveRepeat(s); else saveFlat(s);
 }
 
 function saveFlat(s) {
-var els = elFields.querySelectorAll(’[data-key]’);
-for (var i=0; i<els.length; i++) data[s.id][els[i].getAttribute(‘data-key’)] = els[i].value;
+var els = elFields.querySelectorAll(”[data-key]”);
+for (var i = 0; i < els.length; i++) data[s.id][els[i].getAttribute(“data-key”)] = els[i].value;
 }
 
 function saveRepeat(s) {
-var els = elFields.querySelectorAll(’[data-idx]’);
-for (var i=0; i<els.length; i++) {
+var els = elFields.querySelectorAll(”[data-idx]”);
+for (var i = 0; i < els.length; i++) {
 var el  = els[i];
-var idx = parseInt(el.getAttribute(‘data-idx’));
-var key = el.getAttribute(‘data-key’);
-if (data[s.id][idx]) data[s.id][idx][key] = el.value;
+var idx = parseInt(el.getAttribute(“data-idx”));
+var key = el.getAttribute(“data-key”);
+if (data[s.id][idx] !== undefined) data[s.id][idx][key] = el.value;
 }
 }
 
-// ── Generate ─────────────────────────────────────────────────────────────────
 function generate() {
 save();
-elErr.style.display = ‘none’;
+elErr.style.display = “none”;
 elNext.disabled = true;
-elNext.innerHTML = ‘<span class="spinner"></span> Generiere…’;
-var regen = document.getElementById(‘btn-regen’);
-if(regen){ regen.disabled=true; regen.textContent=’…’; }
+elNext.innerHTML = “<span class="spinner"></span> Generiere…”;
+var regen = document.getElementById(“btn-regen”);
+if (regen) { regen.disabled = true; regen.textContent = “…”; }
 
 ```
-var p = data.personal, s = data.summary, ex = data.experience;
-var ed = data.education, sk = data.skills, e = data.extras;
-var expTxt = ex.map(function(x){ return '- '+x.role+' bei '+x.company+' ('+x.period+'): '+x.description; }).join('\n');
-var eduTxt = ed.map(function(x){ return '- '+x.degree+' an '+x.institution+' ('+x.period+')'; }).join('\n');
+var p  = data.personal;
+var s  = data.summary;
+var ex = data.experience;
+var ed = data.education;
+var sk = data.skills;
+var ex2 = data.extras;
 
-var prompt = 'Du bist ein professioneller HR-Berater. Erstelle einen Lebenslauf auf '+(e.language||'Deutsch')+', Ton: "'+(e.tone||'Professionell')+'".\n\n'
-  +'DATEN:\nName: '+p.name+' | Position: '+p.title+'\n'
-  +'Kontakt: '+p.email+' | '+p.phone+' | '+p.location+(p.linkedin?' | '+p.linkedin:'')+'\n'
-  +'Profil: '+s.summary+'\nErfahrung:\n'+expTxt+'\nAusbildung:\n'+eduTxt+'\n'
-  +'Fachkenntnisse: '+sk.technical+'\nSoft Skills: '+sk.soft+'\nSprachen: '+sk.languages+'\n'
-  +(e.certifications?'Zertifikate: '+e.certifications+'\n':'')
-  +(e.hobbies?'Interessen: '+e.hobbies+'\n':'')
-  +'\nFORMAT (exakt in Markdown):\n# [Name]\n**[Position]**\n[E-Mail] | [Tel] | [Ort]'+(p.linkedin?' | [LinkedIn]':'')+'\n\n'
-  +'## Profil\n[2-3 optimierte Sätze]\n\n## Berufserfahrung\n### [Rolle] · [Firma] | [Zeitraum]\n- [aktiv formuliert]\n\n'
-  +'## Ausbildung\n### [Abschluss] · [Institution] | [Zeitraum]\n\n## Kenntnisse & Sprachen\n- Fachlich: ...\n- Soft Skills: ...\n- Sprachen: ...\n'
-  +(e.certifications?'\n## Zertifikate\n- ...':'')+(e.hobbies?'\n## Interessen\n[kurz]':'')
-  +'\n\nNur Lebenslauf, keine Erklärungen.';
+var expTxt = "";
+for (var i = 0; i < ex.length; i++) expTxt += "- " + ex[i].role + " bei " + ex[i].company + " (" + ex[i].period + "): " + ex[i].description + "\n";
+var eduTxt = "";
+for (var i = 0; i < ed.length; i++) eduTxt += "- " + ed[i].degree + " an " + ed[i].institution + " (" + ed[i].period + ")\n";
 
-fetch('https://api.anthropic.com/v1/messages', {
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]}),
+var prompt = "Du bist ein professioneller HR-Berater. Erstelle einen Lebenslauf auf " + (ex2.language || "Deutsch") + ", Ton: \"" + (ex2.tone || "Professionell") + "\".\n\n"
+  + "DATEN:\nName: " + p.name + " | Position: " + p.title + "\n"
+  + "Kontakt: " + p.email + " | " + p.phone + " | " + p.location + (p.linkedin ? " | " + p.linkedin : "") + "\n"
+  + "Profil: " + s.summary + "\n"
+  + "Erfahrung:\n" + expTxt
+  + "Ausbildung:\n" + eduTxt
+  + "Fachkenntnisse: " + sk.technical + "\n"
+  + "Soft Skills: " + sk.soft + "\n"
+  + "Sprachen: " + sk.languages + "\n"
+  + (ex2.certifications ? "Zertifikate: " + ex2.certifications + "\n" : "")
+  + (ex2.hobbies ? "Interessen: " + ex2.hobbies + "\n" : "")
+  + "\nFORMAT (exakt in Markdown):\n"
+  + "# [Name]\n**[Position]**\n[E-Mail] | [Tel] | [Ort]" + (p.linkedin ? " | [LinkedIn]" : "") + "\n\n"
+  + "## Profil\n[2-3 optimierte Saetze]\n\n"
+  + "## Berufserfahrung\n### [Rolle] - [Firma] | [Zeitraum]\n- [aktiv formuliert]\n\n"
+  + "## Ausbildung\n### [Abschluss] - [Institution] | [Zeitraum]\n\n"
+  + "## Kenntnisse & Sprachen\n- Fachlich: ...\n- Soft Skills: ...\n- Sprachen: ...\n"
+  + (ex2.certifications ? "\n## Zertifikate\n- ..." : "")
+  + (ex2.hobbies ? "\n## Interessen\n[kurz]" : "")
+  + "\n\nNur Lebenslauf, keine Erklaerungen.";
+
+fetch("https://api.anthropic.com/v1/messages", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{role: "user", content: prompt}]})
 })
-.then(function(r){ return r.json(); })
-.then(function(json){
-  md = (json.content||[]).map(function(b){ return b.text||''; }).join('');
+.then(function(r) { return r.json(); })
+.then(function(json) {
+  md = (json.content || []).map(function(b) { return b.text || ""; }).join("");
   showResult();
 })
-.catch(function(){
-  elErr.textContent = 'Fehler beim Generieren. Bitte erneut versuchen.';
-  elErr.style.display = 'block';
+.catch(function() {
+  elErr.textContent = "Fehler beim Generieren. Bitte erneut versuchen.";
+  elErr.style.display = "block";
 })
-.finally(function(){
+.finally(function() {
   elNext.disabled = false;
-  elNext.innerHTML = '✦ Lebenslauf erstellen';
-  var regen = document.getElementById('btn-regen');
-  if(regen){ regen.disabled=false; regen.textContent='↺ Neu'; }
+  elNext.textContent = "\u2726 Lebenslauf erstellen";
+  var regen = document.getElementById("btn-regen");
+  if (regen) { regen.disabled = false; regen.textContent = "\u21BA Neu"; }
 });
 ```
 
 }
 
-// ── Show / hide views ────────────────────────────────────────────────────────
 function showResult() {
-elProgress.style.display   = ‘none’;
-elFormWrap.style.display   = ‘none’;
-elResultWrap.style.display = ‘block’;
+elProgress.style.display   = “none”;
+elFormWrap.style.display   = “none”;
+elResultWrap.style.display = “block”;
 buildTplList();
 renderCV();
-elResultWrap.scrollIntoView({behavior:‘smooth’});
+elResultWrap.scrollIntoView({behavior: “smooth”});
 }
 
 function showForm() {
-elResultWrap.style.display = ‘none’;
-elProgress.style.display   = ‘flex’;
-elFormWrap.style.display   = ‘block’;
+elResultWrap.style.display = “none”;
+elProgress.style.display   = “flex”;
+elFormWrap.style.display   = “block”;
 }
 
-// ── Template list ─────────────────────────────────────────────────────────────
 function buildTplList() {
-var html = ‘’;
-for (var i=0; i<TPLS.length; i++) {
+var html = “”;
+for (var i = 0; i < TPLS.length; i++) {
 var t   = TPLS[i];
-var sel = t.id===tpl;
-html += ‘<div class="tpl-card'+(sel?' sel':'')+'" data-tpl="'+t.id+'" style="border-color:'+(sel?t.acc:'#e8e4e0')+';box-shadow:'+(sel?'0 4px 16px '+t.acc+'25':'none')+'">’
-+ ‘<div class="tpl-preview" style="background:'+t.bg+'">’
-+ (t.dark?’<div class="tpl-exec-bar"></div>’:’’)
-+ (t.id===‘sakura’?’<div class="tpl-sakura-bar"></div>’:’’)
-+ ‘<div class="tpl-content" style="left:'+(t.id==='sakura'?'18':'10')+'px;top:'+(t.dark?'30':'10')+'px">’
-+ ‘<div class="tpl-h" style="width:55%;background:'+t.h+'"></div>’
-+ ‘<div class="tpl-s" style="width:35%;background:'+t.h+'"></div>’
-+ ‘<div class="tpl-l" style="background:'+t.ln+'"></div>’
-+ ‘<div class="tpl-r" style="width:65%"></div><div class="tpl-r" style="width:45%"></div><div class="tpl-r" style="width:80%"></div>’
-+ ‘</div></div>’
-+ ‘<div class="tpl-foot" style="border-top:1px solid '+(sel?t.acc:'#f0ece8')+'">’
-+ ‘<div class="tpl-name" style="color:'+(sel?t.acc:'#1a1a2e')+'">’+t.name+’</div>’
-+ ‘<div class="tpl-desc">’+t.desc+’</div></div></div>’;
+var sel = t.id === tpl;
+html += “<div class="tpl-card” + (sel ? “ sel” : “”) + “" data-tpl="” + t.id + “"”
++ “ style="border-color:” + (sel ? t.acc : “#e8e4e0”) + “;box-shadow:” + (sel ? “0 4px 16px “ + t.acc + “25” : “none”) + “">”
++ “<div class="tpl-preview" style="background:” + t.bg + “">”
++ (t.dark ? “<div class="tpl-exec-bar"></div>” : “”)
++ (t.sak  ? “<div class="tpl-sakura-bar"></div>” : “”)
++ “<div class="tpl-content" style="left:” + (t.sak ? “18” : “10”) + “px;top:” + (t.dark ? “30” : “10”) + “px">”
++ “<div class="tpl-h" style="width:55%;background:” + t.h + “"></div>”
++ “<div class="tpl-s" style="width:35%;background:” + t.h + “"></div>”
++ “<div class="tpl-l" style="background:” + t.ln + “"></div>”
++ “<div class="tpl-r" style="width:65%"></div><div class="tpl-r" style="width:45%"></div><div class="tpl-r" style="width:80%"></div>”
++ “</div></div>”
++ “<div class="tpl-foot" style="border-top:1px solid “ + (sel ? t.acc : “#f0ece8”) + “">”
++ “<div class="tpl-name" style="color:” + (sel ? t.acc : “#1a1a2e”) + “">” + t.name + “</div>”
++ “<div class="tpl-desc">” + t.desc + “</div></div></div>”;
 }
 elTplList.innerHTML = html;
-var cards = elTplList.querySelectorAll(’.tpl-card’);
-for (var j=0; j<cards.length; j++) {
-(function(card){
-card.onclick = function(){
-tpl = card.getAttribute(‘data-tpl’);
-buildTplList();
-renderCV();
-};
+var cards = elTplList.querySelectorAll(”.tpl-card”);
+for (var j = 0; j < cards.length; j++) {
+(function(card) {
+card.onclick = function() { tpl = card.getAttribute(“data-tpl”); buildTplList(); renderCV(); };
 })(cards[j]);
 }
 }
 
-// ── Parse markdown ────────────────────────────────────────────────────────────
 function parseCV(raw) {
-if (!raw) return {name:’’,pos:’’,contact:’’,secs:[]};
-var lines = raw.split(’\n’), name=’’, pos=’’, contact=’’, secs=[], cur=null;
-for (var i=0; i<lines.length; i++) {
+if (!raw) return {name: “”, pos: “”, contact: “”, secs: []};
+var lines = raw.split(”\n”), name = “”, pos = “”, contact = “”, secs = [], cur = null;
+for (var i = 0; i < lines.length; i++) {
 var l = lines[i].trim();
 if (!l) continue;
-if      (l.indexOf(’# ‘)===0 && l.indexOf(’## ‘)<0)              { name = l.slice(2).trim(); }
-else if (!pos && l.indexOf(’**’)===0 && l.lastIndexOf(’**’)>1 && l.indexOf(’|’)<0) { pos = l.replace(/**/g,’’).trim(); }
-else if (!contact && (l.indexOf(’@’)>=0||l.indexOf(’|’)>=0||l.indexOf(‘Tel’)>=0))  { contact = l.replace(/**/g,’’).trim(); }
-else if (l.indexOf(’## ‘)===0) { cur={h:l.slice(3).trim(),items:[]}; secs.push(cur); }
-else if (l.indexOf(’### ‘)===0){ if(cur) cur.items.push({t:‘j’,v:l.slice(4).trim()}); }
-else if (l.indexOf(’- ‘)===0||l.indexOf(’* ‘)===0){ if(cur) cur.items.push({t:‘b’,v:l.slice(2).trim().replace(/**/g,’’)}); }
-else if (l.indexOf(’**’)===0&&l.lastIndexOf(’**’)>1){ if(cur) cur.items.push({t:‘j’,v:l.replace(/**/g,’’).trim()}); }
-else { if(cur) cur.items.push({t:‘t’,v:l.replace(/**/g,’’)}); }
+if      (l.indexOf(”# “) === 0 && l.indexOf(”## “) < 0)                                  { name = l.slice(2).trim(); }
+else if (!pos && l.indexOf(”**”) === 0 && l.lastIndexOf(”**”) > 1 && l.indexOf(”|”) < 0) { pos = l.replace(/**/g, “”).trim(); }
+else if (!contact && (l.indexOf(”@”) >= 0 || l.indexOf(”|”) >= 0))                        { contact = l.replace(/**/g, “”).trim(); }
+else if (l.indexOf(”## “) === 0)  { cur = {h: l.slice(3).trim(), items: []}; secs.push(cur); }
+else if (l.indexOf(”### “) === 0) { if (cur) cur.items.push({t: “j”, v: l.slice(4).trim()}); }
+else if (l.indexOf(”- “) === 0 || l.indexOf(”* “) === 0) { if (cur) cur.items.push({t: “b”, v: l.slice(2).trim().replace(/**/g, “”)}); }
+else if (l.indexOf(”**”) === 0 && l.lastIndexOf(”**”) > 1) { if (cur) cur.items.push({t: “j”, v: l.replace(/**/g, “”).trim()}); }
+else { if (cur) cur.items.push({t: “t”, v: l.replace(/**/g, “”)}); }
 }
-return {name:name,pos:pos,contact:contact,secs:secs};
+return {name: name, pos: pos, contact: contact, secs: secs};
 }
 
-function esc(v){ return (v||’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’); }
+function x(v) {
+return (v || “”).replace(/&/g, “&”).replace(/</g, “<”).replace(/>/g, “>”);
+}
 
-function itemsHTML(items, cls) {
-var html = ‘’;
-for (var i=0; i<items.length; i++) {
+function itemsHTML(items, pfx) {
+var html = “”;
+for (var i = 0; i < items.length; i++) {
 var it = items[i];
-if(it.t===‘j’) html += ‘<div class="'+cls+' cj">’+esc(it.v)+’</div>’;
-else if(it.t===‘b’) html += ‘<div class="'+cls+' cb">’+esc(it.v)+’</div>’;
-else html += ‘<div class="'+cls+' ct">’+esc(it.v)+’</div>’;
+if      (it.t === “j”) html += “<div class="” + pfx + “ cj">” + x(it.v) + “</div>”;
+else if (it.t === “b”) html += “<div class="” + pfx + “ cb">” + x(it.v) + “</div>”;
+else                   html += “<div class="” + pfx + “ ct">” + x(it.v) + “</div>”;
 }
 return html;
 }
 
-// ── Render CV ─────────────────────────────────────────────────────────────────
 function renderCV() {
 var cv   = parseCV(md);
-var html = ‘’;
+var html = “”;
+var h    = “<div class="ch"><div class="cn">” + x(cv.name || “Name”) + “</div>”
++ (cv.pos     ? “<div class="cp">” + x(cv.pos)     + “</div>” : “”)
++ (cv.contact ? “<div class="cc">” + x(cv.contact) + “</div>” : “”)
++ “</div>”;
 
 ```
-if (tpl==='klassisch') {
-  html = '<div class="cv-k"><div class="ch">'
-    + '<div class="cn">'+esc(cv.name||'Name')+'</div>'
-    + (cv.pos?'<div class="cp">'+esc(cv.pos)+'</div>':'')
-    + (cv.contact?'<div class="cc">'+esc(cv.contact)+'</div>':'')
-    + '</div>';
-  for(var i=0;i<cv.secs.length;i++) {
-    html += '<div class="cs"><div class="csh">'+esc(cv.secs[i].h)+'</div>'+itemsHTML(cv.secs[i].items,'cv-k')+'</div>';
-  }
-  html += '</div>';
-} else if (tpl==='sakura') {
-  html = '<div class="cv-s"><div class="ch"><div class="cbar"></div><div class="chi">'
-    + '<div class="cn">'+esc(cv.name||'Name')+'</div>'
-    + (cv.pos?'<div class="cp">'+esc(cv.pos)+'</div>':'')
-    + (cv.contact?'<div class="cc">'+esc(cv.contact)+'</div>':'')
-    + '</div><div class="cd">書</div></div>';
-  for(var i=0;i<cv.secs.length;i++) {
-    html += '<div class="cs"><div class="csh"><div class="cl1"></div><div class="cst">'+esc(cv.secs[i].h)+'</div><div class="cl2"></div></div>'+itemsHTML(cv.secs[i].items,'cv-s')+'</div>';
-  }
-  html += '</div>';
-} else if (tpl==='executive') {
-  html = '<div class="cv-e"><div class="ch">'
-    + '<div class="cn">'+esc(cv.name||'Name')+'</div>'
-    + (cv.pos?'<div class="cp">'+esc(cv.pos)+'</div>':'')
-    + (cv.contact?'<div class="cc">'+esc(cv.contact)+'</div>':'')
-    + '</div>';
-  for(var i=0;i<cv.secs.length;i++) {
-    html += '<div class="cs"><div class="csh"><div class="cst">'+esc(cv.secs[i].h)+'</div><div class="cl"></div></div>'+itemsHTML(cv.secs[i].items,'cv-e')+'</div>';
-  }
-  html += '</div>';
+if (tpl === "klassisch") {
+  html = "<div class=\"cv-k\">" + h;
+  for (var i = 0; i < cv.secs.length; i++)
+    html += "<div class=\"cs\"><div class=\"csh\">" + x(cv.secs[i].h) + "</div>" + itemsHTML(cv.secs[i].items, "cv-k") + "</div>";
+  html += "</div>";
+
+} else if (tpl === "sakura") {
+  var sh = "<div class=\"ch\"><div class=\"cbar\"></div><div class=\"chi\"><div class=\"cn\">" + x(cv.name || "Name") + "</div>"
+         + (cv.pos     ? "<div class=\"cp\">" + x(cv.pos)     + "</div>" : "")
+         + (cv.contact ? "<div class=\"cc\">" + x(cv.contact) + "</div>" : "")
+         + "</div><div class=\"cd\">&#26360;</div></div>";
+  html = "<div class=\"cv-s\">" + sh;
+  for (var i = 0; i < cv.secs.length; i++)
+    html += "<div class=\"cs\"><div class=\"csh\"><div class=\"cl1\"></div><div class=\"cst\">" + x(cv.secs[i].h) + "</div><div class=\"cl2\"></div></div>" + itemsHTML(cv.secs[i].items, "cv-s") + "</div>";
+  html += "</div>";
+
+} else if (tpl === "executive") {
+  html = "<div class=\"cv-e\">" + h;
+  for (var i = 0; i < cv.secs.length; i++)
+    html += "<div class=\"cs\"><div class=\"csh\"><div class=\"cst\">" + x(cv.secs[i].h) + "</div><div class=\"cl\"></div></div>" + itemsHTML(cv.secs[i].items, "cv-e") + "</div>";
+  html += "</div>";
+
 } else {
-  html = '<div class="cv-m"><div class="ch">'
-    + '<div class="cn">'+esc(cv.name||'Name')+'</div>'
-    + (cv.pos?'<div class="cp">'+esc(cv.pos)+'</div>':'')
-    + (cv.contact?'<div class="cc">'+esc(cv.contact)+'</div>':'')
-    + '</div>';
-  for(var i=0;i<cv.secs.length;i++) {
-    html += '<div class="cs"><div class="csh">'+esc(cv.secs[i].h)+'</div><div class="cbody">'+itemsHTML(cv.secs[i].items,'cv-m')+'</div></div>';
-  }
-  html += '</div>';
+  html = "<div class=\"cv-m\"><div class=\"ch\"><div class=\"cn\">" + x(cv.name || "Name") + "</div>"
+       + (cv.pos     ? "<div class=\"cp\">" + x(cv.pos)     + "</div>" : "")
+       + (cv.contact ? "<div class=\"cc\">" + x(cv.contact) + "</div>" : "")
+       + "</div>";
+  for (var i = 0; i < cv.secs.length; i++)
+    html += "<div class=\"cs\"><div class=\"csh\">" + x(cv.secs[i].h) + "</div><div class=\"cbody\">" + itemsHTML(cv.secs[i].items, "cv-m") + "</div></div>";
+  html += "</div>";
 }
 elCVInner.innerHTML = html;
 ```
 
 }
 
-// ── Print ─────────────────────────────────────────────────────────────────────
 function printCV() {
 var cv = parseCV(md);
-var styles = {
-klassisch:‘body{font-family:'EB Garamond',Georgia,serif}h1{font-size:26px;color:#2c3e50;border-bottom:3px double #2c3e50;padding-bottom:8px}h2{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-top:20px}’,
-sakura:   ‘body{font-family:'Cormorant Garamond',Georgia,serif}h1{font-size:28px;font-weight:300;border-left:4px solid #e8a0a0;padding-left:14px}h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0;margin-top:20px}’,
-executive:‘body{font-family:'Playfair Display',Georgia,serif}.hdr{background:#1a3a5c;color:#fff;padding:24px;margin:-20px -20px 20px}h1{color:#fff;font-size:26px;margin:0}h2{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#1a3a5c;border-bottom:1px solid #b8943f;padding-bottom:4px;margin-top:20px}’,
-minimal:  ‘body{font-family:'Georgia',serif}h1{font-size:30px;font-weight:400}h2{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-top:20px}’,
-};
-var out = (md||’’)
-.replace(/^# (.+)$/gm,   tpl===‘executive’?’<div class="hdr"><h1>$1</h1>’:’<h1>$1</h1>’)
-.replace(/^## (.+)$/gm,  tpl===‘executive’?’</div><h2>$1</h2>’:’<h2>$1</h2>’)
-.replace(/^### (.+)$/gm, ‘<h3 style="font-size:14px;margin:10px 0 3px">$1</h3>’)
-.replace(/**(.+?)**/g,’<strong>$1</strong>’)
-.replace(/^[-*] (.+)$/gm,’<li>$1</li>’)
-.split(’\n’).filter(function(l){return l.trim();}).join(’\n’);
-var w = window.open(’’,’_blank’);
-w.document.write(’<!DOCTYPE html><html><head><title>Lebenslauf</title>’
-+’<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>’
-+’<style>body{max-width:740px;margin:20px auto;color:#111;line-height:1.7;padding:20px;font-size:13px}ul{padding-left:16px}li{margin-bottom:3px}h3{margin:10px 0 3px}’+(styles[tpl]||’’)+’@media print{body{margin:0}}</style>’
-+’</head><body>’+out+’</body></html>’);
-w.document.close(); w.print();
+
+```
+var styleKlassisch = "body{font-family:EB Garamond,Georgia,serif}"
+  + "h1{font-size:26px;color:#2c3e50;border-bottom:3px double #2c3e50;padding-bottom:8px}"
+  + "h2{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-top:20px}";
+
+var styleSakura = "body{font-family:Cormorant Garamond,Georgia,serif}"
+  + "h1{font-size:28px;font-weight:300;border-left:4px solid #e8a0a0;padding-left:14px}"
+  + "h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0;margin-top:20px}";
+
+var styleExecutive = "body{font-family:Playfair Display,Georgia,serif}"
+  + ".hdr{background:#1a3a5c;color:#fff;padding:24px;margin:-20px -20px 20px}"
+  + "h1{color:#fff;font-size:26px;margin:0}"
+  + "h2{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#1a3a5c;border-bottom:1px solid #b8943f;padding-bottom:4px;margin-top:20px}";
+
+var styleMinimal = "body{font-family:Georgia,serif}"
+  + "h1{font-size:30px;font-weight:400}"
+  + "h2{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-top:20px}";
+
+var tplStyle = tpl === "klassisch" ? styleKlassisch
+             : tpl === "sakura"    ? styleSakura
+             : tpl === "executive" ? styleExecutive
+             : styleMinimal;
+
+var out = (md || "")
+  .replace(/^# (.+)$/gm,   tpl === "executive" ? "<div class=\"hdr\"><h1>$1</h1>" : "<h1>$1</h1>")
+  .replace(/^## (.+)$/gm,  tpl === "executive" ? "</div><h2>$1</h2>" : "<h2>$1</h2>")
+  .replace(/^### (.+)$/gm, "<h3 style=\"font-size:14px;margin:10px 0 3px\">$1</h3>")
+  .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+  .replace(/^[-*] (.+)$/gm, "<li>$1</li>")
+  .split("\n").filter(function(l) { return l.trim(); }).join("\n");
+
+var w = window.open("", "_blank");
+w.document.write("<!DOCTYPE html><html><head><title>Lebenslauf</title>"
+  + "<style>body{max-width:740px;margin:20px auto;color:#111;line-height:1.7;padding:20px;font-size:13px}"
+  + "ul{padding-left:16px}li{margin-bottom:3px}h3{margin:10px 0 3px}"
+  + tplStyle
+  + "@media print{body{margin:0}}</style></head><body>" + out + "</body></html>");
+w.document.close();
+w.print();
+```
+
 }
 
-// ── Start ─────────────────────────────────────────────────────────────────────
 buildProgress();
 renderStep(0);
-
-}); // end DOMContentLoaded
+});
 </script>
 
 </body>

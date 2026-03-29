@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lebenslauf-Generator · Shoriu</title>
+  <meta name="description" content="KI-gestützter Lebenslauf-Generator von Shoriu. Professionellen Lebenslauf in Minuten erstellen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Serif+JP:wght@300;400&family=EB+Garamond:wght@400;700&family=Playfair+Display:wght@400;700&family=DM+Serif+Display&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { background: #f5f5f0; font-family: 'Cormorant Garamond', Georgia, serif; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useRef } = React;
+
+    const SAKURA = "#e8a0a0";
+    const SAKURA_LIGHT = "#fdf0f0";
+    const INK = "#1a1a2e";
+    const MIST = "#f5f5f0";
+    const STONE = "#8a8a8a";
+
+    const steps = [
+      {
+        id: "personal", kanji: "個", label: "Persönliches",
+        fields: [
+          { key: "name", label: "Vollständiger Name", placeholder: "Max Mustermann", type: "text" },
+          { key: "title", label: "Zielposition", placeholder: "Senior Logistikleiter", type: "text" },
+          { key: "email", label: "E-Mail", placeholder: "max@beispiel.at", type: "email" },
+          { key: "phone", label: "Telefon", placeholder: "+43 660 123 456", type: "text" },
+          { key: "location", label: "Wohnort", placeholder: "Altach, Vorarlberg", type: "text" },
+          { key: "linkedin", label: "LinkedIn / Website (optional)", placeholder: "linkedin.com/in/max", type: "text" },
+        ],
+      },
+      {
+        id: "summary", kanji: "志", label: "Über mich",
+        fields: [
+          { key: "summary", label: "Kurzbeschreibung & Karriereziele", placeholder: "Erfahrener Logistikprofi mit 8 Jahren Erfahrung in der Medizintechnikbranche...", type: "textarea", rows: 5 },
+        ],
+      },
+      {
+        id: "experience", kanji: "歴", label: "Erfahrung", repeatable: true,
+        fields: [
+          { key: "company", label: "Unternehmen", placeholder: "medmix Switzerland AG", type: "text" },
+          { key: "role", label: "Position", placeholder: "Teamleader Logistik", type: "text" },
+          { key: "period", label: "Zeitraum", placeholder: "März 2020 – heute", type: "text" },
+          { key: "description", label: "Aufgaben & Erfolge", placeholder: "Leitung eines Teams, Reduktion der Fehlerquote um 30%...", type: "textarea", rows: 3 },
+        ],
+      },
+      {
+        id: "education", kanji: "学", label: "Ausbildung", repeatable: true,
+        fields: [
+          { key: "institution", label: "Institution", placeholder: "HTL Rankweil", type: "text" },
+          { key: "degree", label: "Abschluss / Studiengang", placeholder: "Matura, Fachrichtung Elektronik", type: "text" },
+          { key: "period", label: "Zeitraum", placeholder: "2010 – 2015", type: "text" },
+        ],
+      },
+      {
+        id: "skills", kanji: "技", label: "Fähigkeiten",
+        fields: [
+          { key: "technical", label: "Fachliche Kenntnisse", placeholder: "SAP WM, MS Excel, Lean Management", type: "textarea", rows: 2 },
+          { key: "soft", label: "Soft Skills", placeholder: "Teamführung, Kommunikation, Problemlösung", type: "textarea", rows: 2 },
+          { key: "languages", label: "Sprachen", placeholder: "Deutsch (Muttersprache), Englisch (B2)", type: "textarea", rows: 2 },
+        ],
+      },
+      {
+        id: "extras", kanji: "他", label: "Weiteres",
+        fields: [
+          { key: "certifications", label: "Zertifikate (optional)", placeholder: "Lean Six Sigma Yellow Belt, SAP 2022", type: "textarea", rows: 2 },
+          { key: "hobbies", label: "Interessen (optional)", placeholder: "Softwareentwicklung, Japanische Kultur", type: "textarea", rows: 2 },
+          { key: "tone", label: "Ton", type: "select", options: ["Professionell & formal", "Modern & direkt", "Kreativ & persönlich"] },
+          { key: "language", label: "Sprache des Lebenslaufs", type: "select", options: ["Deutsch", "Englisch"] },
+        ],
+      },
+    ];
+
+    const TEMPLATES = [
+      { id: "klassisch", name: "Klassisch", desc: "Zeitlos & bewährt", accent: "#2c3e50" },
+      { id: "sakura",   name: "Sakura",    desc: "Elegant & modern",  accent: "#e8a0a0" },
+      { id: "executive",name: "Executive", desc: "Senior & Führung",   accent: "#1a3a5c" },
+      { id: "minimal",  name: "Minimal",   desc: "Tech & Design",      accent: "#444"    },
+    ];
+
+    const defaultData = () => ({
+      personal:   { name: "", title: "", email: "", phone: "", location: "", linkedin: "" },
+      summary:    { summary: "" },
+      experience: [{ company: "", role: "", period: "", description: "" }],
+      education:  [{ institution: "", degree: "", period: "" }],
+      skills:     { technical: "", soft: "", languages: "" },
+      extras:     { certifications: "", hobbies: "", tone: "Professionell & formal", language: "Deutsch" },
+    });
+
+    // ── Markdown → structured CV ──────────────────────────────────────────────
+    function parseCV(md) {
+      if (!md) return { name: "", title: "", contact: "", sections: [] };
+      const lines = md.split("\n");
+      let name = "", title = "", contact = "";
+      const sections = [];
+      let current = null;
+      for (const raw of lines) {
+        const line = raw.trim();
+        if (!line) continue;
+        if (line.startsWith("# "))                                           { name = line.slice(2).trim(); }
+        else if (!title && line.startsWith("**") && line.endsWith("**") && !line.includes("|")) { title = line.replace(/\*\*/g, "").trim(); }
+        else if (!contact && (line.includes("@") || line.includes("|") || line.includes("Tel"))) { contact = line.replace(/\*\*/g, "").trim(); }
+        else if (line.startsWith("## ")) { current = { heading: line.slice(3).trim(), items: [] }; sections.push(current); }
+        else if (line.startsWith("### ")) { if (current) current.items.push({ type: "subheading", text: line.slice(4).trim() }); }
+        else if (line.startsWith("- ") || line.startsWith("* ")) { if (current) current.items.push({ type: "bullet", text: line.slice(2).trim().replace(/\*\*/g, "") }); }
+        else if (line.startsWith("**") && line.endsWith("**"))  { if (current) current.items.push({ type: "bold",    text: line.replace(/\*\*/g, "").trim() }); }
+        else { if (current) current.items.push({ type: "text", text: line.replace(/\*\*/g, "") }); }
+      }
+      return { name, title, contact, sections };
+    }
+
+    // ── Shared section items renderer ─────────────────────────────────────────
+    function SectionItems({ items, bulletChar, bulletColor, subStyle }) {
+      return items.map((item, j) => (
+        <div key={j}>
+          {item.type === "subheading" && <div style={{ ...subStyle, marginTop: j > 0 ? "10px" : 0 }}>{item.text}</div>}
+          {item.type === "bold"       && <div style={{ ...subStyle, fontSize: "14px", marginTop: "8px" }}>{item.text}</div>}
+          {item.type === "bullet"     && (
+            <div style={{ fontSize: "13px", paddingLeft: "16px", position: "relative", color: "#444", marginBottom: "3px", lineHeight: 1.65 }}>
+              <span style={{ position: "absolute", left: 0, color: bulletColor }}>{bulletChar}</span>
+              {item.text}
+            </div>
+          )}
+          {item.type === "text" && <div style={{ fontSize: "13px", color: "#444", lineHeight: 1.7 }}>{item.text}</div>}
+        </div>
+      ));
+    }
+
+    // ── Templates ─────────────────────────────────────────────────────────────
+    function TemplateKlassisch({ cv }) {
+      const { name, title, contact, sections } = cv;
+      return (
+        <div style={{ fontFamily: "'EB Garamond', Georgia, serif", color: "#1a1a1a", lineHeight: 1.7 }}>
+          <div style={{ borderBottom: "3px double #2c3e50", paddingBottom: "16px", marginBottom: "22px" }}>
+            <div style={{ fontSize: "30px", fontWeight: 700, letterSpacing: "0.04em", color: "#2c3e50" }}>{name || "Name"}</div>
+            {title   && <div style={{ fontSize: "13px", color: "#666", letterSpacing: "0.14em", textTransform: "uppercase", marginTop: "4px" }}>{title}</div>}
+            {contact && <div style={{ fontSize: "12px", color: "#777", marginTop: "7px" }}>{contact}</div>}
+          </div>
+          {sections.map((s, i) => (
+            <div key={i} style={{ marginBottom: "20px" }}>
+              <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#2c3e50", borderBottom: "1px solid #2c3e50", paddingBottom: "3px", marginBottom: "10px" }}>{s.heading}</div>
+              <SectionItems items={s.items} bulletChar="·" bulletColor="#2c3e50" subStyle={{ fontWeight: 700, fontSize: "15px", color: "#1a1a1a" }} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function TemplateSakura({ cv }) {
+      const { name, title, contact, sections } = cv;
+      return (
+        <div style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: INK }}>
+          <div style={{ display: "flex", marginBottom: "26px" }}>
+            <div style={{ width: "4px", background: `linear-gradient(to bottom, ${SAKURA}, #c47a7a)`, borderRadius: "3px", marginRight: "18px", flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: "32px", fontWeight: 300, letterSpacing: "0.05em", lineHeight: 1.1 }}>{name || "Name"}</div>
+              {title   && <div style={{ fontSize: "12px", color: SAKURA, letterSpacing: "0.15em", textTransform: "uppercase", marginTop: "5px", fontWeight: 500 }}>{title}</div>}
+              {contact && <div style={{ fontSize: "12px", color: STONE, marginTop: "7px" }}>{contact}</div>}
+            </div>
+            <div style={{ fontFamily: "'Noto Serif JP', serif", fontSize: "32px", color: "#f0d8d8", alignSelf: "center", paddingLeft: "12px" }}>書</div>
+          </div>
+          {sections.map((s, i) => (
+            <div key={i} style={{ marginBottom: "20px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+                <div style={{ height: "1px", width: "18px", background: SAKURA }} />
+                <div style={{ fontSize: "10px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: SAKURA }}>{s.heading}</div>
+                <div style={{ flex: 1, height: "1px", background: "#f0d8d8" }} />
+              </div>
+              <SectionItems items={s.items} bulletChar="◦" bulletColor={SAKURA} subStyle={{ fontWeight: 600, fontSize: "15px", color: INK }} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function TemplateExecutive({ cv }) {
+      const { name, title, contact, sections } = cv;
+      const NAVY = "#1a3a5c", GOLD = "#b8943f";
+      return (
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", color: "#1a1a1a" }}>
+          <div style={{ background: NAVY, color: "#fff", padding: "30px 32px", margin: "-48px -48px 28px" }}>
+            <div style={{ fontSize: "28px", fontWeight: 700, letterSpacing: "0.05em" }}>{name || "Name"}</div>
+            {title   && <div style={{ fontSize: "11px", color: GOLD, letterSpacing: "0.22em", textTransform: "uppercase", marginTop: "6px" }}>{title}</div>}
+            {contact && <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)", marginTop: "10px" }}>{contact}</div>}
+          </div>
+          {sections.map((s, i) => (
+            <div key={i} style={{ marginBottom: "22px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+                <div style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: NAVY }}>{s.heading}</div>
+                <div style={{ flex: 1, height: "1px", background: GOLD }} />
+              </div>
+              <SectionItems items={s.items} bulletChar="▸" bulletColor={GOLD} subStyle={{ fontWeight: 700, fontSize: "14px", color: NAVY }} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function TemplateMinimal({ cv }) {
+      const { name, title, contact, sections } = cv;
+      return (
+        <div style={{ fontFamily: "'DM Serif Display', Georgia, serif", color: "#111" }}>
+          <div style={{ marginBottom: "30px" }}>
+            <div style={{ fontSize: "34px", fontWeight: 400, letterSpacing: "-0.01em", lineHeight: 1 }}>{name || "Name"}</div>
+            {title   && <div style={{ fontSize: "12px", color: "#888", letterSpacing: "0.08em", marginTop: "8px", fontFamily: "'DM Sans', sans-serif" }}>{title}</div>}
+            {contact && <div style={{ fontSize: "12px", color: "#bbb", marginTop: "5px", fontFamily: "'DM Sans', sans-serif" }}>{contact}</div>}
+          </div>
+          {sections.map((s, i) => (
+            <div key={i} style={{ marginBottom: "22px", display: "grid", gridTemplateColumns: "110px 1fr", gap: "0 20px" }}>
+              <div style={{ fontSize: "9px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#bbb", paddingTop: "3px", fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>{s.heading}</div>
+              <div style={{ borderLeft: "1px solid #ececec", paddingLeft: "20px" }}>
+                <SectionItems items={s.items} bulletChar="–" bulletColor="#ccc" subStyle={{ fontWeight: 700, fontSize: "14px", color: "#111" }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // ── Field ─────────────────────────────────────────────────────────────────
+    function Field({ field, value, onChange }) {
+      const base = {
+        width: "100%", padding: "10px 14px", border: "1.5px solid #e0ddd8",
+        borderRadius: "8px", fontSize: "14px", fontFamily: "'Cormorant Garamond', Georgia, serif",
+        background: "#fff", color: INK, outline: "none", transition: "border-color 0.2s", boxSizing: "border-box",
+      };
+      const focus = e => e.target.style.borderColor = SAKURA;
+      const blur  = e => e.target.style.borderColor = "#e0ddd8";
+      if (field.type === "textarea")
+        return <textarea rows={field.rows||3} placeholder={field.placeholder} value={value||""} onChange={e=>onChange(e.target.value)} style={{...base,resize:"vertical",lineHeight:"1.6"}} onFocus={focus} onBlur={blur} />;
+      if (field.type === "select")
+        return <select value={value||field.options[0]} onChange={e=>onChange(e.target.value)} style={{...base,cursor:"pointer"}}>{field.options.map(o=><option key={o}>{o}</option>)}</select>;
+      return <input type={field.type} placeholder={field.placeholder} value={value||""} onChange={e=>onChange(e.target.value)} style={base} onFocus={focus} onBlur={blur} />;
+    }
+
+    // ── Repeat section ────────────────────────────────────────────────────────
+    function RepeatSection({ step, data, onChange }) {
+      const items = Array.isArray(data) ? data : [{}];
+      const update = (idx, key, val) => onChange(items.map((it,i) => i===idx ? {...it,[key]:val} : it));
+      return (
+        <div style={{ display:"flex", flexDirection:"column", gap:"16px" }}>
+          {items.map((item, idx) => (
+            <div key={idx} style={{ background:SAKURA_LIGHT, borderRadius:"12px", padding:"16px", border:"1px solid #f0d8d8", position:"relative" }}>
+              {items.length > 1 && (
+                <button onClick={()=>onChange(items.filter((_,i)=>i!==idx))} style={{ position:"absolute", top:"10px", right:"10px", background:"none", border:"none", color:STONE, cursor:"pointer", fontSize:"18px" }}>×</button>
+              )}
+              <div style={{ display:"flex", flexDirection:"column", gap:"12px" }}>
+                {step.fields.map(f => (
+                  <div key={f.key}>
+                    <label style={{ display:"block", fontSize:"10px", fontWeight:600, color:STONE, marginBottom:"5px", letterSpacing:"0.08em", textTransform:"uppercase" }}>{f.label}</label>
+                    <Field field={f} value={item[f.key]} onChange={val=>update(idx,f.key,val)} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+          <button onClick={()=>onChange([...items,{}])} style={{ background:"none", border:`1.5px dashed ${SAKURA}`, color:SAKURA, padding:"10px", borderRadius:"8px", cursor:"pointer", fontSize:"14px", fontFamily:"'Cormorant Garamond', serif" }}>+ Eintrag hinzufügen</button>
+        </div>
+      );
+    }
+
+    // ── Template card preview ─────────────────────────────────────────────────
+    function TemplateCard({ tpl, selected, onSelect }) {
+      const colors = {
+        klassisch:  [STONE,    "#f8f7f5", "#2c3e50", "#2c3e50"],
+        sakura:     [SAKURA,   "#fdf8f8", SAKURA,    "#f0d8d8"],
+        executive:  ["#1a3a5c","#f0f4f8", "#1a3a5c", "#b8943f"],
+        minimal:    ["#444",   "#fafafa", "#444",    "#e8e8e8"],
+      };
+      const [, bg, h, line] = colors[tpl.id];
+      return (
+        <div onClick={()=>onSelect(tpl.id)} style={{ cursor:"pointer", border:`2px solid ${selected ? tpl.accent : "#e8e4e0"}`, borderRadius:"10px", overflow:"hidden", transition:"all 0.2s", transform:selected?"translateY(-1px)":"none", boxShadow:selected?`0 4px 16px ${tpl.accent}25`:"none" }}>
+          <div style={{ background:bg, padding:"10px", height:"78px", position:"relative", overflow:"hidden" }}>
+            {tpl.id==="executive" && <div style={{ position:"absolute",top:0,left:0,right:0,height:"24px",background:"#1a3a5c" }} />}
+            {tpl.id==="sakura"    && <div style={{ position:"absolute",top:"8px",left:"8px",bottom:"8px",width:"3px",background:SAKURA,borderRadius:"2px" }} />}
+            <div style={{ position:"absolute", top:tpl.id==="executive"?"30px":"10px", left:tpl.id==="sakura"?"18px":"10px", right:"10px" }}>
+              <div style={{ height:"7px",width:"55%",background:h,borderRadius:"2px",marginBottom:"4px",opacity:0.85 }} />
+              <div style={{ height:"3px",width:"35%",background:h,borderRadius:"2px",marginBottom:"7px",opacity:0.35 }} />
+              <div style={{ height:"1px",background:line,marginBottom:"5px" }} />
+              {[65,45,80,35].map((w,i)=><div key={i} style={{ height:"3px",width:`${w}%`,background:"#ccc",borderRadius:"2px",marginBottom:"3px" }} />)}
+            </div>
+          </div>
+          <div style={{ padding:"8px 10px",background:"#fff",borderTop:`1px solid ${selected?tpl.accent:"#f0ece8"}` }}>
+            <div style={{ fontSize:"12px",fontWeight:600,color:selected?tpl.accent:INK,fontFamily:"'Cormorant Garamond', serif" }}>{tpl.name}</div>
+            <div style={{ fontSize:"10px",color:STONE }}>{tpl.desc}</div>
+          </div>
+        </div>
+      );
+    }
+
+    // ── Prompt builder ────────────────────────────────────────────────────────
+    function buildPrompt(data) {
+      const { personal, summary, experience, education, skills, extras } = data;
+      const expText = (experience||[]).map(e=>`- ${e.role} bei ${e.company} (${e.period}): ${e.description}`).join("\n");
+      const eduText = (education||[]).map(e=>`- ${e.degree} an ${e.institution} (${e.period})`).join("\n");
+      return `Du bist ein professioneller HR-Berater. Erstelle einen Lebenslauf auf ${extras.language||"Deutsch"}, Ton: "${extras.tone||"Professionell"}".
+
+DATEN:
+Name: ${personal.name} | Position: ${personal.title}
+Kontakt: ${personal.email} | ${personal.phone} | ${personal.location}${personal.linkedin?` | ${personal.linkedin}`:""}
+Profil: ${summary.summary}
+Erfahrung:\n${expText}
+Ausbildung:\n${eduText}
+Fachkenntnisse: ${skills.technical}
+Soft Skills: ${skills.soft}
+Sprachen: ${skills.languages}
+${extras.certifications?`Zertifikate: ${extras.certifications}`:""}
+${extras.hobbies?`Interessen: ${extras.hobbies}`:""}
+
+FORMAT (exakt in Markdown):
+# [Name]
+**[Position]**
+[E-Mail] | [Tel] | [Ort]${personal.linkedin?" | [LinkedIn]":""}
+
+## Profil
+[2-3 optimierte Sätze]
+
+## Berufserfahrung
+### [Rolle] · [Firma] | [Zeitraum]
+- [aktiv formuliert, ergebnisorientiert]
+
+## Ausbildung
+### [Abschluss] · [Institution] | [Zeitraum]
+
+## Kenntnisse & Sprachen
+- Fachlich: ...
+- Soft Skills: ...
+- Sprachen: ...
+${extras.certifications?"\n## Zertifikate\n- ...":""}${extras.hobbies?"\n## Interessen\n[kurz]":""}
+
+Nur Lebenslauf, keine Erklärungen davor oder danach.`;
+    }
+
+    // ── App ───────────────────────────────────────────────────────────────────
+    function App() {
+      const [step,     setStep]     = useState(0);
+      const [data,     setData]     = useState(defaultData());
+      const [loading,  setLoading]  = useState(false);
+      const [result,   setResult]   = useState(null);
+      const [template, setTemplate] = useState("sakura");
+      const [error,    setError]    = useState(null);
+      const resultRef = useRef(null);
+
+      const current = steps[step];
+      const isLast  = step === steps.length - 1;
+      const cv      = parseCV(result);
+
+      const updateField      = (section, key, val) => setData(d=>({...d,[section]:{...d[section],[key]:val}}));
+      const updateRepeatable = (section, val)       => setData(d=>({...d,[section]:val}));
+
+      const generate = async () => {
+        setLoading(true); setError(null);
+        try {
+          const res  = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, messages:[{role:"user",content:buildPrompt(data)}] }),
+          });
+          const json = await res.json();
+          setResult(json.content?.map(b=>b.text||"").join("") || "");
+          setTimeout(()=>resultRef.current?.scrollIntoView({behavior:"smooth"}),100);
+        } catch {
+          setError("Fehler beim Generieren. Bitte erneut versuchen.");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      const printCV = () => {
+        const w = window.open("","_blank");
+        const styles = {
+          klassisch:  `body{font-family:'EB Garamond',Georgia,serif}h1{font-size:26px;color:#2c3e50;border-bottom:3px double #2c3e50;padding-bottom:8px}h2{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-top:20px}`,
+          sakura:     `body{font-family:'Cormorant Garamond',Georgia,serif}h1{font-size:28px;font-weight:300;border-left:4px solid #e8a0a0;padding-left:14px}h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0;margin-top:20px}`,
+          executive:  `body{font-family:'Playfair Display',Georgia,serif}.hdr{background:#1a3a5c;color:#fff;padding:24px;margin:-20px -20px 20px}h1{color:#fff;font-size:26px;margin:0}h2{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#1a3a5c;border-bottom:1px solid #b8943f;padding-bottom:4px;margin-top:20px}`,
+          minimal:    `body{font-family:'Georgia',serif}h1{font-size:30px;font-weight:400}h2{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-top:20px}`,
+        };
+        const md = (result||"")
+          .replace(/^# (.+)$/gm,   template==="executive" ? '<div class="hdr"><h1>$1</h1>' : '<h1>$1</h1>')
+          .replace(/^## (.+)$/gm,  template==="executive" ? '</div><h2>$1</h2>' : '<h2>$1</h2>')
+          .replace(/^### (.+)$/gm, '<h3 style="font-size:14px;margin:10px 0 3px">$1</h3>')
+          .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+          .replace(/^[-*] (.+)$/gm,'<li>$1</li>')
+          .split('\n').filter(l=>l.trim()).join('\n');
+        w.document.write(`<!DOCTYPE html><html><head><title>Lebenslauf · ${cv.name||""}</title>
+          <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Cormorant+Garamond:wght@300;400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+          <style>body{max-width:740px;margin:20px auto;color:#111;line-height:1.7;padding:20px;font-size:13px}ul{padding-left:16px}li{margin-bottom:3px}h3{margin:10px 0 3px}${styles[template]||""}@media print{body{margin:0}}</style>
+
+```
+      </head><body>${md}</body></html>`);
+    w.document.close(); w.print();
+  };
+
+  const renderTemplate = () => {
+    if (template==="klassisch") return <TemplateKlassisch cv={cv} />;
+    if (template==="sakura")    return <TemplateSakura    cv={cv} />;
+    if (template==="executive") return <TemplateExecutive cv={cv} />;
+    return                             <TemplateMinimal   cv={cv} />;
+  };
+
+  // ── Shared button styles ────────────────────────────────────────────────
+  const btnBase   = { fontFamily:"'Cormorant Garamond', serif", borderRadius:"8px", cursor:"pointer", fontSize:"14px" };
+  const btnGhost  = { ...btnBase, background:"none", border:"1.5px solid #e0ddd8", color:INK, padding:"10px 22px" };
+  const btnSakura = { ...btnBase, background:SAKURA, color:"#fff", border:"none", padding:"11px 32px", fontSize:"15px", letterSpacing:"0.04em" };
+  const btnDark   = { ...btnBase, background:INK, color:"#fff", border:"none", padding:"11px 32px", fontSize:"15px", letterSpacing:"0.04em" };
+
+  return (
+    <div style={{ minHeight:"100vh", background:MIST }}>
+
+      {/* ── Header ─────────────────────────────────────────────────────── */}
+      <div style={{ background:INK, color:"#fff", padding:"16px 28px", display:"flex", alignItems:"center", gap:"14px" }}>
+        <span style={{ fontSize:"24px", fontFamily:"'Noto Serif JP', serif", color:SAKURA }}>書流</span>
+        <div>
+          <div style={{ fontSize:"15px", letterSpacing:"0.08em", fontWeight:300 }}>Lebenslauf-Generator</div>
+          <div style={{ fontSize:"10px", color:STONE, letterSpacing:"0.12em", textTransform:"uppercase" }}>Shoriu · KI-gestützt</div>
+        </div>
+      </div>
+
+      {!result ? (
+        /* ── FORM ──────────────────────────────────────────────────────── */
+        <div style={{ maxWidth:"660px", margin:"0 auto", padding:"28px 16px" }}>
+
+          {/* Progress */}
+          <div style={{ display:"flex", gap:"3px", marginBottom:"32px" }}>
+            {steps.map((s,i) => (
+              <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:"4px" }}>
+                <div
+                  onClick={()=>i<step&&setStep(i)}
+                  style={{ width:"32px",height:"32px",borderRadius:"50%", background:i===step?SAKURA:i<step?"#c47a7a":"#e0ddd8", color:i<=step?"#fff":STONE, display:"flex",alignItems:"center",justifyContent:"center", fontSize:"13px",fontFamily:"'Noto Serif JP', serif", cursor:i<step?"pointer":"default", transition:"all 0.3s", boxShadow:i===step?`0 0 0 3px ${SAKURA_LIGHT}`:"none" }}
+                >{s.kanji}</div>
+                <div style={{ fontSize:"9px",color:i===step?INK:STONE,textAlign:"center" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Card */}
+          <div style={{ background:"#fff",borderRadius:"14px",padding:"28px",boxShadow:"0 4px 20px rgba(0,0,0,0.06)",border:"1px solid #ede8e3",animation:"fadeIn 0.3s ease" }}>
+            <div style={{ display:"flex",alignItems:"baseline",gap:"12px",marginBottom:"24px" }}>
+              <span style={{ fontSize:"36px",fontFamily:"'Noto Serif JP', serif",color:SAKURA,lineHeight:1 }}>{current.kanji}</span>
+              <div>
+                <div style={{ fontSize:"20px",fontWeight:300,color:INK }}>{current.label}</div>
+                <div style={{ fontSize:"11px",color:STONE }}>Schritt {step+1} von {steps.length}</div>
+              </div>
+            </div>
+            <div style={{ display:"flex",flexDirection:"column",gap:"16px" }}>
+              {current.repeatable ? (
+                <RepeatSection step={current} data={data[current.id]} onChange={val=>updateRepeatable(current.id,val)} />
+              ) : (
+                current.fields.map(f => (
+                  <div key={f.key}>
+                    <label style={{ display:"block",fontSize:"10px",fontWeight:600,color:STONE,marginBottom:"5px",letterSpacing:"0.08em",textTransform:"uppercase" }}>{f.label}</label>
+                    <Field field={f} value={data[current.id]?.[f.key]} onChange={val=>updateField(current.id,f.key,val)} />
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Nav */}
+          <div style={{ display:"flex",justifyContent:"space-between",marginTop:"20px" }}>
+            <button onClick={()=>setStep(s=>s-1)} disabled={step===0} style={{ ...btnGhost,color:step===0?"#ccc":INK,cursor:step===0?"default":"pointer" }}>← Zurück</button>
+            {isLast ? (
+              <button onClick={generate} disabled={loading} style={{ ...btnDark,background:loading?STONE:INK,cursor:loading?"default":"pointer",display:"flex",alignItems:"center",gap:"9px" }}>
+                {loading
+                  ? <><span style={{ display:"inline-block",width:"13px",height:"13px",border:"2px solid rgba(255,255,255,0.3)",borderTop:"2px solid #fff",borderRadius:"50%",animation:"spin 0.8s linear infinite" }}/>Generiere...</>
+                  : "✦ Lebenslauf erstellen"}
+              </button>
+            ) : (
+              <button onClick={()=>setStep(s=>s+1)} style={btnSakura}>Weiter →</button>
+            )}
+          </div>
+          {error && <div style={{ color:"#c00",textAlign:"center",marginTop:"14px",fontSize:"13px" }}>{error}</div>}
+        </div>
+
+      ) : (
+        /* ── RESULT ────────────────────────────────────────────────────── */
+        <div ref={resultRef} style={{ maxWidth:"1080px",margin:"0 auto",padding:"28px 16px",animation:"fadeIn 0.4s ease" }}>
+
+          {/* Actions */}
+          <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px",flexWrap:"wrap",gap:"10px" }}>
+            <div>
+              <div style={{ fontSize:"20px",fontWeight:300,color:INK }}>Ihr Lebenslauf</div>
+              <div style={{ fontSize:"10px",color:STONE,letterSpacing:"0.06em" }}>Template wählen · PDF exportieren</div>
+            </div>
+            <div style={{ display:"flex",gap:"8px",flexWrap:"wrap" }}>
+              <button onClick={()=>setResult(null)} style={btnGhost}>← Bearbeiten</button>
+              <button onClick={generate} disabled={loading} style={{ ...btnGhost,borderColor:SAKURA,color:SAKURA,cursor:loading?"default":"pointer" }}>{loading?"...":"↺ Neu"}</button>
+              <button onClick={printCV} style={{ ...btnDark,fontSize:"14px",padding:"10px 20px" }}>⎙ PDF / Drucken</button>
+            </div>
+          </div>
+
+          <div style={{ display:"grid",gridTemplateColumns:"180px 1fr",gap:"20px",alignItems:"start" }}>
+
+            {/* Template picker */}
+            <div>
+              <div style={{ fontSize:"10px",fontWeight:600,color:STONE,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:"10px" }}>Template</div>
+              <div style={{ display:"flex",flexDirection:"column",gap:"8px" }}>
+                {TEMPLATES.map(tpl=><TemplateCard key={tpl.id} tpl={tpl} selected={template===tpl.id} onSelect={setTemplate} />)}
+              </div>
+            </div>
+
+            {/* Preview */}
+            <div style={{ background:"#fff",borderRadius:"14px",overflow:"hidden",boxShadow:"0 4px 28px rgba(0,0,0,0.08)",border:"1px solid #ede8e3" }}>
+              <div style={{ padding:"48px" }}>
+                {renderTemplate()}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ textAlign:"center",marginTop:"16px" }}>
+            <span style={{ fontSize:"11px",color:STONE,letterSpacing:"0.06em" }}>
+              <span style={{ fontFamily:"'Noto Serif JP', serif",color:SAKURA }}>書流</span> Shoriu
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+```
+
+  </script>
+</body>
+</html>

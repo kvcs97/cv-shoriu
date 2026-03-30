@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="UTF-8"/>
@@ -11,554 +10,596 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:#f5f5f0;font-family:"Cormorant Garamond",Georgia,serif;min-height:100vh}
-.site-header{background:#1a1a2e;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px}
-.site-header .k{font-family:"Noto Serif JP",serif;font-size:24px;color:#e8a0a0}
-.site-header .t{font-size:15px;letter-spacing:.08em;font-weight:300}
-.site-header .s{font-size:10px;color:#8a8a8a;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.hdr{background:#1a1a2e;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px}
+.hdr .k{font-family:"Noto Serif JP",serif;font-size:24px;color:#e8a0a0}
+.hdr .t{font-size:15px;letter-spacing:.08em;font-weight:300}
+.hdr .s{font-size:10px;color:#8a8a8a;letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
 .progress{display:flex;gap:3px;max-width:660px;margin:28px auto 0;padding:0 16px}
-.prog-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-.prog-dot{width:32px;height:32px;border-radius:50%;background:#e0ddd8;color:#8a8a8a;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:"Noto Serif JP",serif;transition:all .3s;cursor:default}
-.prog-dot.done{background:#c47a7a;color:#fff;cursor:pointer}
-.prog-dot.active{background:#e8a0a0;color:#fff;box-shadow:0 0 0 3px #fdf0f0}
-.prog-lbl{font-size:9px;color:#8a8a8a;text-align:center}
-.prog-lbl.active{color:#1a1a2e}
-.form-wrap{max-width:660px;margin:20px auto 0;padding:0 16px 40px}
+.pi{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default}
+.pd{width:32px;height:32px;border-radius:50%;background:#e0ddd8;color:#8a8a8a;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:"Noto Serif JP",serif;transition:all .3s}
+.pd.done{background:#c47a7a;color:#fff;cursor:pointer}
+.pd.active{background:#e8a0a0;color:#fff;box-shadow:0 0 0 3px #fdf0f0}
+.pl{font-size:9px;color:#8a8a8a;text-align:center}
+.pl.active{color:#1a1a2e}
+.fw{max-width:660px;margin:20px auto 0;padding:0 16px 40px}
 .card{background:#fff;border-radius:14px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid #ede8e3}
-.card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
-.card-kanji{font-family:"Noto Serif JP",serif;font-size:36px;color:#e8a0a0;line-height:1}
-.card-title{font-size:20px;font-weight:300;color:#1a1a2e}
-.card-step{font-size:11px;color:#8a8a8a;margin-top:2px}
+.ch{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+.ck{font-family:"Noto Serif JP",serif;font-size:36px;color:#e8a0a0;line-height:1}
+.ct{font-size:20px;font-weight:300;color:#1a1a2e}
+.cs{font-size:11px;color:#8a8a8a;margin-top:2px}
 .fields{display:flex;flex-direction:column;gap:16px}
-.fw label{display:block;font-size:10px;font-weight:600;color:#8a8a8a;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase}
-.fw input,.fw textarea,.fw select{width:100%;padding:10px 14px;border:1.5px solid #e0ddd8;border-radius:8px;font-size:14px;font-family:"Cormorant Garamond",Georgia,serif;background:#fff;color:#1a1a2e;outline:none;transition:border-color .2s}
-.fw input:focus,.fw textarea:focus,.fw select:focus{border-color:#e8a0a0}
-.fw textarea{resize:vertical;line-height:1.6}
-.rep-block{background:#fdf0f0;border-radius:12px;padding:16px;border:1px solid #f0d8d8;position:relative;margin-bottom:12px}
-.rep-rm{position:absolute;top:10px;right:10px;background:none;border:none;color:#8a8a8a;cursor:pointer;font-size:18px;line-height:1;padding:0}
-.rep-inner{display:flex;flex-direction:column;gap:12px}
-.rep-add{background:none;border:1.5px dashed #e8a0a0;color:#e8a0a0;padding:10px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif;width:100%;margin-top:4px}
+.fl label{display:block;font-size:10px;font-weight:600;color:#8a8a8a;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase}
+.fl input,.fl textarea,.fl select{width:100%;padding:10px 14px;border:1.5px solid #e0ddd8;border-radius:8px;font-size:14px;font-family:"Cormorant Garamond",Georgia,serif;background:#fff;color:#1a1a2e;outline:none;transition:border-color .2s}
+.fl input:focus,.fl textarea:focus,.fl select:focus{border-color:#e8a0a0}
+.fl textarea{resize:vertical;line-height:1.6}
+.rb{background:#fdf0f0;border-radius:12px;padding:16px;border:1px solid #f0d8d8;position:relative;margin-bottom:12px}
+.rr{position:absolute;top:10px;right:10px;background:none;border:none;color:#8a8a8a;cursor:pointer;font-size:18px;line-height:1;padding:0}
+.ri{display:flex;flex-direction:column;gap:12px}
+.ra{background:none;border:1.5px dashed #e8a0a0;color:#e8a0a0;padding:10px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif;width:100%;margin-top:4px}
 .nav{display:flex;justify-content:space-between;margin-top:20px}
-.btn-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif}
-.btn-ghost:disabled{color:#ccc;cursor:default}
-.btn-sakura{background:#e8a0a0;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em}
-.btn-dark{background:#1a1a2e;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em;display:inline-flex;align-items:center;gap:9px}
-.btn-dark:disabled{background:#8a8a8a;cursor:default}
-.btn-sm-ghost{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
-.btn-sm-sakura{background:none;border:1.5px solid #e8a0a0;color:#e8a0a0;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
-.btn-sm-dark{background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
-.err{color:#c00;text-align:center;margin-top:14px;font-size:13px;display:none}
-.spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top:2px solid #fff;border-radius:50%;animation:spin .8s linear infinite}
-.result-wrap{max-width:1080px;margin:0 auto;padding:28px 16px 40px;display:none}
-.result-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-.result-title{font-size:20px;font-weight:300;color:#1a1a2e}
-.result-sub{font-size:10px;color:#8a8a8a;letter-spacing:.06em;margin-top:2px}
-.result-actions{display:flex;gap:8px;flex-wrap:wrap}
-.result-grid{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start}
-@media(max-width:600px){.result-grid{grid-template-columns:1fr}}
-.tpl-label{font-size:10px;font-weight:600;color:#8a8a8a;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
-.tpl-list{display:flex;flex-direction:column;gap:8px}
-.tpl-card{cursor:pointer;border:2px solid #e8e4e0;border-radius:10px;overflow:hidden;transition:all .2s;background:#fff}
-.tpl-card.sel{transform:translateY(-1px)}
-.tpl-preview{padding:10px;height:78px;position:relative;overflow:hidden}
-.tpl-exec-bar{position:absolute;top:0;left:0;right:0;height:24px;background:#1a3a5c}
-.tpl-sakura-bar{position:absolute;top:8px;left:8px;bottom:8px;width:3px;background:#e8a0a0;border-radius:2px}
-.tpl-content{position:absolute;right:10px}
-.tpl-h{height:7px;border-radius:2px;margin-bottom:4px;opacity:.85}
-.tpl-s{height:3px;border-radius:2px;margin-bottom:7px;opacity:.35}
-.tpl-l{height:1px;margin-bottom:5px}
-.tpl-r{height:3px;border-radius:2px;margin-bottom:3px;background:#ccc}
-.tpl-foot{padding:8px 10px;background:#fff}
-.tpl-name{font-size:12px;font-weight:600;font-family:"Cormorant Garamond",serif}
-.tpl-desc{font-size:10px;color:#8a8a8a}
-.cv-box{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,.08);border:1px solid #ede8e3}
-.cv-inner{padding:48px}
-.site-footer{text-align:center;margin-top:16px;font-size:11px;color:#8a8a8a;letter-spacing:.06em}
-.site-footer .k{font-family:"Noto Serif JP",serif;color:#e8a0a0}
-.cv-k{font-family:"EB Garamond",Georgia,serif;color:#1a1a1a;line-height:1.7}
-.cv-k .ch{border-bottom:3px double #2c3e50;padding-bottom:16px;margin-bottom:22px}
-.cv-k .cn{font-size:30px;font-weight:700;letter-spacing:.04em;color:#2c3e50}
-.cv-k .cp{font-size:13px;color:#666;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
-.cv-k .cc{font-size:12px;color:#777;margin-top:7px}
-.cv-k .cs{margin-bottom:20px}
-.cv-k .csh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-bottom:10px}
-.cv-k .cj{font-weight:700;font-size:15px;color:#1a1a1a;margin-top:10px}
-.cv-k .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
-.cv-k .cb::before{content:"\B7";position:absolute;left:0;color:#2c3e50}
-.cv-k .ct{font-size:13px;color:#444;line-height:1.7}
-.cv-s{font-family:"Cormorant Garamond",Georgia,serif;color:#1a1a2e}
-.cv-s .ch{display:flex;margin-bottom:26px}
-.cv-s .cbar{width:4px;background:linear-gradient(to bottom,#e8a0a0,#c47a7a);border-radius:3px;margin-right:18px;flex-shrink:0}
-.cv-s .chi{flex:1}
-.cv-s .cn{font-size:32px;font-weight:300;letter-spacing:.05em;line-height:1.1}
-.cv-s .cp{font-size:12px;color:#e8a0a0;letter-spacing:.15em;text-transform:uppercase;margin-top:5px;font-weight:500}
-.cv-s .cc{font-size:12px;color:#8a8a8a;margin-top:7px}
-.cv-s .cd{font-family:"Noto Serif JP",serif;font-size:32px;color:#f0d8d8;align-self:center;padding-left:12px}
-.cv-s .cs{margin-bottom:20px}
-.cv-s .csh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.cv-s .cl1{height:1px;width:18px;background:#e8a0a0}
-.cv-s .cst{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0}
-.cv-s .cl2{flex:1;height:1px;background:#f0d8d8}
-.cv-s .cj{font-weight:600;font-size:15px;color:#1a1a2e;margin-top:10px}
-.cv-s .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
-.cv-s .cb::before{content:"\25E6";position:absolute;left:0;color:#e8a0a0}
-.cv-s .ct{font-size:13px;color:#444;line-height:1.7}
-.cv-e{font-family:"Playfair Display",Georgia,serif;color:#1a1a1a}
-.cv-e .ch{background:#1a3a5c;color:#fff;padding:30px 32px;margin:-48px -48px 28px}
-.cv-e .cn{font-size:28px;font-weight:700;letter-spacing:.05em}
-.cv-e .cp{font-size:11px;color:#b8943f;letter-spacing:.22em;text-transform:uppercase;margin-top:6px}
-.cv-e .cc{font-size:12px;color:rgba(255,255,255,.6);margin-top:10px}
-.cv-e .cs{margin-bottom:22px}
-.cv-e .csh{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.cv-e .cst{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#1a3a5c}
-.cv-e .cl{flex:1;height:1px;background:#b8943f}
-.cv-e .cj{font-weight:700;font-size:14px;color:#1a3a5c;margin-top:10px}
-.cv-e .cb{font-size:13px;padding-left:16px;position:relative;color:#333;margin-bottom:4px;line-height:1.65}
-.cv-e .cb::before{content:"\25B8";position:absolute;left:0;color:#b8943f}
-.cv-e .ct{font-size:13px;color:#333;line-height:1.7}
-.cv-m{font-family:"DM Serif Display",Georgia,serif;color:#111}
-.cv-m .ch{margin-bottom:30px}
-.cv-m .cn{font-size:34px;font-weight:400;letter-spacing:-.01em;line-height:1}
-.cv-m .cp{font-size:12px;color:#888;letter-spacing:.08em;margin-top:8px;font-family:"DM Sans",sans-serif}
-.cv-m .cc{font-size:12px;color:#bbb;margin-top:5px;font-family:"DM Sans",sans-serif}
-.cv-m .cs{margin-bottom:22px;display:grid;grid-template-columns:110px 1fr;gap:0 20px}
-.cv-m .csh{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;padding-top:3px;font-family:"DM Sans",sans-serif;line-height:1.4}
-.cv-m .cbody{border-left:1px solid #ececec;padding-left:20px}
-.cv-m .cj{font-weight:700;font-size:14px;color:#111;margin-top:8px}
-.cv-m .cb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65;font-family:"DM Sans",sans-serif}
-.cv-m .cb::before{content:"\2013";position:absolute;left:0;color:#ccc}
-.cv-m .ct{font-size:13px;color:#555;line-height:1.7;font-family:"DM Sans",sans-serif}
+.bg{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-family:"Cormorant Garamond",serif}
+.bg:disabled{color:#ccc;cursor:default}
+.bs{background:#e8a0a0;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em}
+.bd{background:#1a1a2e;color:#fff;border:none;padding:11px 32px;border-radius:8px;cursor:pointer;font-size:15px;font-family:"Cormorant Garamond",serif;letter-spacing:.04em;display:inline-flex;align-items:center;gap:9px}
+.bd:disabled{background:#8a8a8a;cursor:default}
+.bsg{background:none;border:1.5px solid #e0ddd8;color:#1a1a2e;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
+.bss{background:none;border:1.5px solid #e8a0a0;color:#e8a0a0;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
+.bsd{background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-family:"Cormorant Garamond",serif}
+.er{color:#c00;text-align:center;margin-top:14px;font-size:13px;display:none}
+.sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top:2px solid #fff;border-radius:50%;animation:spin .8s linear infinite}
+.rw{max-width:1080px;margin:0 auto;padding:28px 16px 40px;display:none}
+.rt{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.rti{font-size:20px;font-weight:300;color:#1a1a2e}
+.rts{font-size:10px;color:#8a8a8a;letter-spacing:.06em;margin-top:2px}
+.ra2{display:flex;gap:8px;flex-wrap:wrap}
+.rg{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start}
+@media(max-width:600px){.rg{grid-template-columns:1fr}}
+.tl{font-size:10px;font-weight:600;color:#8a8a8a;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.tls{display:flex;flex-direction:column;gap:8px}
+.tc{cursor:pointer;border:2px solid #e8e4e0;border-radius:10px;overflow:hidden;transition:all .2s;background:#fff}
+.tc.sel{transform:translateY(-1px)}
+.tp{padding:10px;height:78px;position:relative;overflow:hidden}
+.teb{position:absolute;top:0;left:0;right:0;height:24px;background:#1a3a5c}
+.tsb{position:absolute;top:8px;left:8px;bottom:8px;width:3px;background:#e8a0a0;border-radius:2px}
+.tco{position:absolute;right:10px}
+.th{height:7px;border-radius:2px;margin-bottom:4px;opacity:.85}
+.tsu{height:3px;border-radius:2px;margin-bottom:7px;opacity:.35}
+.tln{height:1px;margin-bottom:5px}
+.tr{height:3px;border-radius:2px;margin-bottom:3px;background:#ccc}
+.tf{padding:8px 10px;background:#fff}
+.tn{font-size:12px;font-weight:600;font-family:"Cormorant Garamond",serif}
+.td{font-size:10px;color:#8a8a8a}
+.cb{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,.08);border:1px solid #ede8e3}
+.ci{padding:48px}
+.ft{text-align:center;margin-top:16px;font-size:11px;color:#8a8a8a;letter-spacing:.06em}
+.ft .k{font-family:"Noto Serif JP",serif;color:#e8a0a0}
+.cvk{font-family:"EB Garamond",Georgia,serif;color:#1a1a1a;line-height:1.7}
+.cvk .vh{border-bottom:3px double #2c3e50;padding-bottom:16px;margin-bottom:22px}
+.cvk .vn{font-size:30px;font-weight:700;letter-spacing:.04em;color:#2c3e50}
+.cvk .vp{font-size:13px;color:#666;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+.cvk .vc{font-size:12px;color:#777;margin-top:7px}
+.cvk .vs{margin-bottom:20px}
+.cvk .vsh{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-bottom:10px}
+.cvk .vj{font-weight:700;font-size:15px;color:#1a1a1a;margin-top:10px}
+.cvk .vb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
+.cvk .vb::before{content:"\00B7";position:absolute;left:0;color:#2c3e50}
+.cvk .vt{font-size:13px;color:#444;line-height:1.7}
+.cvs{font-family:"Cormorant Garamond",Georgia,serif;color:#1a1a2e}
+.cvs .vh{display:flex;margin-bottom:26px}
+.cvs .vbar{width:4px;background:linear-gradient(to bottom,#e8a0a0,#c47a7a);border-radius:3px;margin-right:18px;flex-shrink:0}
+.cvs .vi{flex:1}
+.cvs .vn{font-size:32px;font-weight:300;letter-spacing:.05em;line-height:1.1}
+.cvs .vp{font-size:12px;color:#e8a0a0;letter-spacing:.15em;text-transform:uppercase;margin-top:5px;font-weight:500}
+.cvs .vc{font-size:12px;color:#8a8a8a;margin-top:7px}
+.cvs .vd{font-family:"Noto Serif JP",serif;font-size:32px;color:#f0d8d8;align-self:center;padding-left:12px}
+.cvs .vs{margin-bottom:20px}
+.cvs .vsh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cvs .vl1{height:1px;width:18px;background:#e8a0a0}
+.cvs .vst{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0}
+.cvs .vl2{flex:1;height:1px;background:#f0d8d8}
+.cvs .vj{font-weight:600;font-size:15px;color:#1a1a2e;margin-top:10px}
+.cvs .vb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65}
+.cvs .vb::before{content:"\25E6";position:absolute;left:0;color:#e8a0a0}
+.cvs .vt{font-size:13px;color:#444;line-height:1.7}
+.cve{font-family:"Playfair Display",Georgia,serif;color:#1a1a1a}
+.cve .vh{background:#1a3a5c;color:#fff;padding:30px 32px;margin:-48px -48px 28px}
+.cve .vn{font-size:28px;font-weight:700;letter-spacing:.05em}
+.cve .vp{font-size:11px;color:#b8943f;letter-spacing:.22em;text-transform:uppercase;margin-top:6px}
+.cve .vc{font-size:12px;color:rgba(255,255,255,.6);margin-top:10px}
+.cve .vs{margin-bottom:22px}
+.cve .vsh{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.cve .vst{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#1a3a5c}
+.cve .vl{flex:1;height:1px;background:#b8943f}
+.cve .vj{font-weight:700;font-size:14px;color:#1a3a5c;margin-top:10px}
+.cve .vb{font-size:13px;padding-left:16px;position:relative;color:#333;margin-bottom:4px;line-height:1.65}
+.cve .vb::before{content:"\25B8";position:absolute;left:0;color:#b8943f}
+.cve .vt{font-size:13px;color:#333;line-height:1.7}
+.cvm{font-family:"DM Serif Display",Georgia,serif;color:#111}
+.cvm .vh{margin-bottom:30px}
+.cvm .vn{font-size:34px;font-weight:400;letter-spacing:-.01em;line-height:1}
+.cvm .vp{font-size:12px;color:#888;letter-spacing:.08em;margin-top:8px;font-family:"DM Sans",sans-serif}
+.cvm .vc{font-size:12px;color:#bbb;margin-top:5px;font-family:"DM Sans",sans-serif}
+.cvm .vs{margin-bottom:22px;display:grid;grid-template-columns:110px 1fr;gap:0 20px}
+.cvm .vsh{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#bbb;padding-top:3px;font-family:"DM Sans",sans-serif;line-height:1.4}
+.cvm .vbo{border-left:1px solid #ececec;padding-left:20px}
+.cvm .vj{font-weight:700;font-size:14px;color:#111;margin-top:8px}
+.cvm .vb{font-size:13px;padding-left:16px;position:relative;color:#444;margin-bottom:3px;line-height:1.65;font-family:"DM Sans",sans-serif}
+.cvm .vb::before{content:"\2013";position:absolute;left:0;color:#ccc}
+.cvm .vt{font-size:13px;color:#555;line-height:1.7;font-family:"DM Sans",sans-serif}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<div class="site-header">
+<div class="hdr">
   <span class="k">&#26360;&#27969;</span>
   <div><div class="t">Lebenslauf-Generator</div><div class="s">Shoriu &middot; KI-gest&uuml;tzt</div></div>
 </div>
 <div class="progress" id="progress"></div>
-<div class="form-wrap" id="form-wrap">
+<div class="fw" id="form-wrap">
   <div class="card">
-    <div class="card-head">
-      <span class="card-kanji" id="ckanji"></span>
-      <div><div class="card-title" id="ctitle"></div><div class="card-step" id="cstep"></div></div>
+    <div class="ch">
+      <span class="ck" id="ckanji"></span>
+      <div><div class="ct" id="ctitle"></div><div class="cs" id="cstep"></div></div>
     </div>
     <div class="fields" id="fields"></div>
   </div>
   <div class="nav">
-    <button class="btn-ghost" id="btn-back">&#8592; Zur&uuml;ck</button>
-    <button class="btn-sakura" id="btn-next">Weiter &#8594;</button>
+    <button class="bg" id="btn-back">&#8592; Zur&uuml;ck</button>
+    <button class="bs" id="btn-next">Weiter &#8594;</button>
   </div>
-  <div class="err" id="err"></div>
+  <div class="er" id="err"></div>
 </div>
-<div class="result-wrap" id="result-wrap">
-  <div class="result-top">
-    <div><div class="result-title">Ihr Lebenslauf</div><div class="result-sub">Template w&auml;hlen &middot; PDF exportieren</div></div>
-    <div class="result-actions">
-      <button class="btn-sm-ghost" id="btn-edit">&#8592; Bearbeiten</button>
-      <button class="btn-sm-sakura" id="btn-regen">&#8634; Neu</button>
-      <button class="btn-sm-dark" id="btn-print">&#8679; PDF</button>
+<div class="rw" id="result-wrap">
+  <div class="rt">
+    <div><div class="rti">Ihr Lebenslauf</div><div class="rts">Template w&auml;hlen &middot; PDF exportieren</div></div>
+    <div class="ra2">
+      <button class="bsg" id="btn-edit">&#8592; Bearbeiten</button>
+      <button class="bss" id="btn-regen">&#8634; Neu</button>
+      <button class="bsd" id="btn-print">&#8679; PDF</button>
     </div>
   </div>
-  <div class="result-grid">
-    <div><div class="tpl-label">Template</div><div class="tpl-list" id="tpl-list"></div></div>
-    <div class="cv-box"><div class="cv-inner" id="cv-inner"></div></div>
+  <div class="rg">
+    <div><div class="tl">Template</div><div class="tls" id="tpl-list"></div></div>
+    <div class="cb"><div class="ci" id="cv-inner"></div></div>
   </div>
-  <div class="site-footer"><span class="k">&#26360;&#27969;</span> Shoriu</div>
+  <div class="ft"><span class="k">&#26360;&#27969;</span> Shoriu</div>
 </div>
 <script>
+
 window.addEventListener('DOMContentLoaded', function() {
 
-var Q = ‘”’;
+  var KANJI = ['\u500b','\u5fd7','\u6b74','\u5b66','\u6280','\u4ed6'];
+  var LABELS = ['Personliches','Uber mich','Erfahrung','Ausbildung','Fahigkeiten','Weiteres'];
 
-var STEPS = [
-{id:‘personal’, kanji:’個’, label:‘Persönliches’, fields:[
-{key:‘name’,     label:‘Vollständiger Name’,       ph:‘Max Mustermann’,         type:‘text’},
-{key:‘title’,    label:‘Zielposition’,                  ph:‘Senior Logistikleiter’,  type:‘text’},
-{key:‘email’,    label:‘E-Mail’,                        ph:‘max@beispiel.at’,        type:‘email’},
-{key:‘phone’,    label:‘Telefon’,                       ph:’+43 660 123 456’,        type:‘text’},
-{key:‘location’, label:‘Wohnort’,                       ph:‘Altach, Vorarlberg’,     type:‘text’},
-{key:‘linkedin’, label:‘LinkedIn / Website (optional)’, ph:‘linkedin.com/in/max’,    type:‘text’}
-]},
-{id:‘summary’, kanji:’志’, label:’Über mich’, fields:[
-{key:‘summary’, label:‘Kurzbeschreibung & Karriereziele’, ph:‘Erfahrener Logistikprofi…’, type:‘textarea’, rows:5}
-]},
-{id:‘experience’, kanji:’歴’, label:‘Erfahrung’, rep:true, fields:[
-{key:‘company’,     label:‘Unternehmen’,        ph:‘medmix Switzerland AG’,  type:‘text’},
-{key:‘role’,        label:‘Position’,            ph:‘Teamleader Logistik’,    type:‘text’},
-{key:‘period’,      label:‘Zeitraum’,            ph:‘2020 - heute’,           type:‘text’},
-{key:‘description’, label:‘Aufgaben & Erfolge’,  ph:‘Leitung eines Teams…’, type:‘textarea’, rows:3}
-]},
-{id:‘education’, kanji:’学’, label:‘Ausbildung’, rep:true, fields:[
-{key:‘institution’, label:‘Institution’,             ph:‘HTL Rankweil’,                   type:‘text’},
-{key:‘degree’,      label:‘Abschluss / Studiengang’, ph:‘Matura, Fachrichtung Elektronik’, type:‘text’},
-{key:‘period’,      label:‘Zeitraum’,                ph:‘2010 - 2015’,                     type:‘text’}
-]},
-{id:‘skills’, kanji:’技’, label:‘Fähigkeiten’, fields:[
-{key:‘technical’, label:‘Fachliche Kenntnisse’, ph:‘SAP WM, MS Excel, Lean Management’,     type:‘textarea’, rows:2},
-{key:‘soft’,      label:‘Soft Skills’,           ph:‘Teamfuehrung, Kommunikation’,           type:‘textarea’, rows:2},
-{key:‘languages’, label:‘Sprachen’,              ph:‘Deutsch (Muttersprache), Englisch (B2)’, type:‘textarea’, rows:2}
-]},
-{id:‘extras’, kanji:’他’, label:‘Weiteres’, fields:[
-{key:‘certifications’, label:‘Zertifikate (optional)’, ph:‘Lean Six Sigma Yellow Belt’, type:‘textarea’, rows:2},
-{key:‘hobbies’,        label:‘Interessen (optional)’,  ph:‘Softwareentwicklung, Japanische Kultur’, type:‘textarea’, rows:2},
-{key:‘tone’,     label:‘Ton’,     type:‘select’, opts:[‘Professionell und formal’,‘Modern und direkt’,‘Kreativ und persoenlich’]},
-{key:‘language’, label:‘Sprache’, type:‘select’, opts:[‘Deutsch’,‘Englisch’]}
-]}
-];
+  var FIELDS = [
+    [
+      {key:'name',     label:'Vollstandiger Name',        ph:'Max Mustermann',           type:'text'},
+      {key:'title',    label:'Zielposition',              ph:'Senior Logistikleiter',    type:'text'},
+      {key:'email',    label:'E-Mail',                    ph:'max@beispiel.at',          type:'email'},
+      {key:'phone',    label:'Telefon',                   ph:'+43 660 123 456',          type:'text'},
+      {key:'location', label:'Wohnort',                   ph:'Altach, Vorarlberg',       type:'text'},
+      {key:'linkedin', label:'LinkedIn / Website',        ph:'linkedin.com/in/max',      type:'text'}
+    ],
+    [
+      {key:'summary',  label:'Kurzbeschreibung und Karriereziele', ph:'Erfahrener Logistikprofi...', type:'textarea', rows:5}
+    ],
+    [
+      {key:'company',     label:'Unternehmen',     ph:'medmix Switzerland AG',  type:'text'},
+      {key:'role',        label:'Position',         ph:'Teamleader Logistik',    type:'text'},
+      {key:'period',      label:'Zeitraum',         ph:'2020 - heute',           type:'text'},
+      {key:'description', label:'Aufgaben und Erfolge', ph:'Leitung eines Teams, Reduktion der Fehlerquote um 30 Prozent...', type:'textarea', rows:3}
+    ],
+    [
+      {key:'institution', label:'Institution',             ph:'HTL Rankweil',                    type:'text'},
+      {key:'degree',      label:'Abschluss Studiengang',   ph:'Matura, Fachrichtung Elektronik', type:'text'},
+      {key:'period',      label:'Zeitraum',                ph:'2010 - 2015',                     type:'text'}
+    ],
+    [
+      {key:'technical', label:'Fachliche Kenntnisse', ph:'SAP WM, MS Excel, Lean Management',       type:'textarea', rows:2},
+      {key:'soft',      label:'Soft Skills',           ph:'Teamfuehrung, Kommunikation',             type:'textarea', rows:2},
+      {key:'languages', label:'Sprachen',              ph:'Deutsch (Muttersprache), Englisch (B2)',  type:'textarea', rows:2}
+    ],
+    [
+      {key:'certifications', label:'Zertifikate optional',  ph:'Lean Six Sigma Yellow Belt', type:'textarea', rows:2},
+      {key:'hobbies',        label:'Interessen optional',   ph:'Softwareentwicklung, Japanische Kultur', type:'textarea', rows:2},
+      {key:'tone',     label:'Ton',     type:'select', opts:['Professionell und formal','Modern und direkt','Kreativ und persoenlich']},
+      {key:'language', label:'Sprache', type:'select', opts:['Deutsch','Englisch']}
+    ]
+  ];
 
-var TPLS = [
-{id:‘sakura’,    name:‘Sakura’,    desc:‘Elegant & modern’,  acc:’#e8a0a0’, bg:’#fdf8f8’, h:’#e8a0a0’, ln:’#f0d8d8’, sak:true},
-{id:‘klassisch’, name:‘Klassisch’, desc:‘Zeitlos & bewaehrt’,acc:’#2c3e50’, bg:’#f8f7f5’, h:’#2c3e50’, ln:’#2c3e50’},
-{id:‘executive’, name:‘Executive’, desc:‘Senior & Fuehrung’, acc:’#1a3a5c’, bg:’#f0f4f8’, h:’#1a3a5c’, ln:’#b8943f’, dark:true},
-{id:‘minimal’,   name:‘Minimal’,   desc:‘Tech & Design’,     acc:’#444’,    bg:’#fafafa’, h:’#444’,    ln:’#e8e8e8’}
-];
+  var REPEAT = [false, false, true, true, false, false];
 
-var step=0, tpl=‘sakura’, md=’’;
-var data={
-personal:{name:’’,title:’’,email:’’,phone:’’,location:’’,linkedin:’’},
-summary:{summary:’’},
-experience:[{company:’’,role:’’,period:’’,description:’’}],
-education:[{institution:’’,degree:’’,period:’’}],
-skills:{technical:’’,soft:’’,languages:’’},
-extras:{certifications:’’,hobbies:’’,tone:‘Professionell und formal’,language:‘Deutsch’}
-};
+  var TPLS = [
+    {id:'sakura',    name:'Sakura',    desc:'Elegant & modern',  acc:'#e8a0a0', bg:'#fdf8f8', h:'#e8a0a0', ln:'#f0d8d8', sak:true},
+    {id:'klassisch', name:'Klassisch', desc:'Zeitlos & sicher',  acc:'#2c3e50', bg:'#f8f7f5', h:'#2c3e50', ln:'#2c3e50'},
+    {id:'executive', name:'Executive', desc:'Senior & Fuehrung', acc:'#1a3a5c', bg:'#f0f4f8', h:'#1a3a5c', ln:'#b8943f', dark:true},
+    {id:'minimal',   name:'Minimal',   desc:'Tech & Design',     acc:'#444',    bg:'#fafafa', h:'#444',    ln:'#e8e8e8'}
+  ];
 
-var eProgress=document.getElementById(‘progress’);
-var eFormWrap=document.getElementById(‘form-wrap’);
-var eResultWrap=document.getElementById(‘result-wrap’);
-var eFields=document.getElementById(‘fields’);
-var eKanji=document.getElementById(‘ckanji’);
-var eTitle=document.getElementById(‘ctitle’);
-var eStepNum=document.getElementById(‘cstep’);
-var eBack=document.getElementById(‘btn-back’);
-var eNext=document.getElementById(‘btn-next’);
-var eErr=document.getElementById(‘err’);
-var eTplList=document.getElementById(‘tpl-list’);
-var eCVInner=document.getElementById(‘cv-inner’);
+  var step = 0;
+  var tpl  = 'sakura';
+  var md   = '';
 
-document.getElementById(‘btn-edit’).onclick=showForm;
-document.getElementById(‘btn-regen’).onclick=generate;
-document.getElementById(‘btn-print’).onclick=printCV;
-eBack.onclick=function(){save();if(step>0)renderStep(step-1);};
-eNext.onclick=function(){save();if(step<STEPS.length-1)renderStep(step+1);else generate();};
+  var data = [
+    {name:'',title:'',email:'',phone:'',location:'',linkedin:''},
+    {summary:''},
+    [{company:'',role:'',period:'',description:''}],
+    [{institution:'',degree:'',period:''}],
+    {technical:'',soft:'',languages:''},
+    {certifications:'',hobbies:'',tone:'Professionell und formal',language:'Deutsch'}
+  ];
 
-function buildProgress(){
-var h=’’;
-for(var i=0;i<STEPS.length;i++){
-h+=’<div class="prog-item" id="pi'+i+'"><div class="prog-dot" id="pd'+i+'">’+STEPS[i].kanji+’</div><div class="prog-lbl" id="pl'+i+'">’+STEPS[i].label+’</div></div>’;
-}
-eProgress.innerHTML=h;
-for(var j=0;j<STEPS.length;j++){
-(function(idx){
-var el=document.getElementById(‘pi’+idx);
-if(el)el.onclick=function(){if(idx<step){save();renderStep(idx);}};
-})(j);
-}
-}
+  var eP  = document.getElementById('progress');
+  var eFW = document.getElementById('form-wrap');
+  var eRW = document.getElementById('result-wrap');
+  var eF  = document.getElementById('fields');
+  var eK  = document.getElementById('ckanji');
+  var eTi = document.getElementById('ctitle');
+  var eSt = document.getElementById('cstep');
+  var eBk = document.getElementById('btn-back');
+  var eBn = document.getElementById('btn-next');
+  var eEr = document.getElementById('err');
+  var eTL = document.getElementById('tpl-list');
+  var eCI = document.getElementById('cv-inner');
 
-function updateProgress(){
-for(var i=0;i<STEPS.length;i++){
-var d=document.getElementById(‘pd’+i);
-var l=document.getElementById(‘pl’+i);
-if(!d||!l)continue;
-d.className=‘prog-dot’+(i===step?’ active’:i<step?’ done’:’’);
-l.className=‘prog-lbl’+(i===step?’ active’:’’);
-}
-}
+  document.getElementById('btn-edit').onclick  = showForm;
+  document.getElementById('btn-regen').onclick = generate;
+  document.getElementById('btn-print').onclick = printCV;
+  eBk.onclick = function() { save(); if (step > 0) renderStep(step - 1); };
+  eBn.onclick = function() { save(); if (step < 5) renderStep(step + 1); else generate(); };
 
-function renderStep(n){
-step=n;
-var s=STEPS[step];
-eKanji.innerHTML=s.kanji;
-eTitle.innerHTML=s.label;
-eStepNum.textContent=’Schritt ‘+(step+1)+’ von ’+STEPS.length;
-updateProgress();
-eBack.disabled=(step===0);
-if(step===STEPS.length-1){
-eNext.className=‘btn-dark’;
-eNext.textContent=‘Lebenslauf erstellen’;
-}else{
-eNext.className=‘btn-sakura’;
-eNext.textContent=‘Weiter’;
-}
-eNext.disabled=false;
-if(s.rep)renderRepeat(s);else renderFlat(s);
-}
+  function buildProgress() {
+    var h = '';
+    for (var i = 0; i < 6; i++) {
+      h += '<div class="pi" id="pi' + i + '"><div class="pd" id="pd' + i + '">' + KANJI[i] + '</div>'
+         + '<div class="pl" id="pl' + i + '">' + LABELS[i] + '</div></div>';
+    }
+    eP.innerHTML = h;
+    for (var j = 0; j < 6; j++) {
+      (function(idx) {
+        var el = document.getElementById('pi' + idx);
+        if (el) el.onclick = function() { if (idx < step) { save(); renderStep(idx); } };
+      })(j);
+    }
+  }
 
-function esc(v){return(v||’’).replace(/&/g,’&’).replace(/”/g,’"’).replace(/</g,’<’).replace(/>/g,’>’);}
+  function updateProgress() {
+    for (var i = 0; i < 6; i++) {
+      var d = document.getElementById('pd' + i);
+      var l = document.getElementById('pl' + i);
+      if (!d || !l) continue;
+      d.className = 'pd' + (i === step ? ' active' : i < step ? ' done' : '');
+      l.className = 'pl' + (i === step ? ' active' : '');
+    }
+  }
 
-function fieldHTML(f,val){
-if(f.type===‘textarea’){return ‘<textarea rows="'+(f.rows||3)+'" placeholder="'+esc(f.ph||'')+'" data-key="'+f.key+'">’+esc(val)+’</textarea>’;}
-if(f.type===‘select’){
-var o=’’;
-for(var i=0;i<f.opts.length;i++)o+=’<option’+(f.opts[i]===val?’ selected’:’’)+’>’+f.opts[i]+’</option>’;
-return ‘<select data-key="'+f.key+'">’+o+’</select>’;
-}
-return ‘<input type="'+f.type+'" placeholder="'+esc(f.ph||'')+'" value="'+esc(val)+'" data-key="'+f.key+'"/>’;
-}
+  function renderStep(n) {
+    step = n;
+    eK.textContent = KANJI[step];
+    eTi.textContent = LABELS[step];
+    eSt.textContent = 'Schritt ' + (step + 1) + ' von 6';
+    updateProgress();
+    eBk.disabled = (step === 0);
+    if (step === 5) {
+      eBn.className = 'bd';
+      eBn.textContent = 'Lebenslauf erstellen';
+    } else {
+      eBn.className = 'bs';
+      eBn.textContent = 'Weiter';
+    }
+    eBn.disabled = false;
+    if (REPEAT[step]) renderRepeat(); else renderFlat();
+  }
 
-function repFieldHTML(f,val,idx){
-if(f.type===‘textarea’){return ‘<textarea rows="'+(f.rows||3)+'" placeholder="'+esc(f.ph||'')+'" data-key="'+f.key+'" data-idx="'+idx+'">’+esc(val)+’</textarea>’;}
-return ‘<input type="'+f.type+'" placeholder="'+esc(f.ph||'')+'" value="'+esc(val)+'" data-key="'+f.key+'" data-idx="'+idx+'"/>’;
-}
+  function esc(v) {
+    return (v || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 
-function renderFlat(s){
-var h=’’,d=data[s.id];
-for(var i=0;i<s.fields.length;i++){
-var f=s.fields[i];
-h+=’<div class="fw"><label>’+f.label+’</label>’+fieldHTML(f,d[f.key]||’’)+’</div>’;
-}
-eFields.innerHTML=h;
-}
+  function fHTML(f, val) {
+    var v = esc(val || '');
+    var p = esc(f.ph || '');
+    if (f.type === 'textarea') return '<textarea rows="' + (f.rows || 3) + '" placeholder="' + p + '" data-key="' + f.key + '">' + v + '</textarea>';
+    if (f.type === 'select') {
+      var o = '';
+      for (var i = 0; i < f.opts.length; i++) o += '<option' + (f.opts[i] === val ? ' selected' : '') + '>' + f.opts[i] + '</option>';
+      return '<select data-key="' + f.key + '">' + o + '</select>';
+    }
+    return '<input type="' + f.type + '" placeholder="' + p + '" value="' + v + '" data-key="' + f.key + '"/>';
+  }
 
-function renderRepeat(s){
-var items=data[s.id],h=’<div id="rep-list">’;
-for(var i=0;i<items.length;i++)h+=repItemHTML(s,items[i],i);
-h+=’</div><button class="rep-add" id="rep-add-btn">+ Eintrag hinzufügen</button>’;
-eFields.innerHTML=h;
-document.getElementById(‘rep-add-btn’).onclick=function(){addRep(s);};
-bindRepRemove(s);
-}
+  function rfHTML(f, val, idx) {
+    var v = esc(val || '');
+    var p = esc(f.ph || '');
+    if (f.type === 'textarea') return '<textarea rows="' + (f.rows || 3) + '" placeholder="' + p + '" data-key="' + f.key + '" data-idx="' + idx + '">' + v + '</textarea>';
+    return '<input type="' + f.type + '" placeholder="' + p + '" value="' + v + '" data-key="' + f.key + '" data-idx="' + idx + '"/>';
+  }
 
-function repItemHTML(s,item,idx){
-var canRm=data[s.id].length>1;
-var h=’<div class="rep-block" data-idx="'+idx+'">’;
-if(canRm)h+=’<button class="rep-rm" data-ridx="'+idx+'">×</button>’;
-h+=’<div class="rep-inner">’;
-for(var i=0;i<s.fields.length;i++){
-var f=s.fields[i];
-h+=’<div class="fw"><label>’+f.label+’</label>’+repFieldHTML(f,item[f.key]||’’,idx)+’</div>’;
-}
-h+=’</div></div>’;
-return h;
-}
+  function renderFlat() {
+    var fs = FIELDS[step];
+    var d  = data[step];
+    var h  = '';
+    for (var i = 0; i < fs.length; i++) {
+      var f = fs[i];
+      h += '<div class="fl"><label>' + f.label + '</label>' + fHTML(f, d[f.key] || '') + '</div>';
+    }
+    eF.innerHTML = h;
+  }
 
-function bindRepRemove(s){
-var btns=document.querySelectorAll(’.rep-rm’);
-for(var i=0;i<btns.length;i++){
-(function(btn){
-btn.onclick=function(){
-saveRepeat(s);
-var idx=parseInt(btn.getAttribute(‘data-ridx’));
-data[s.id].splice(idx,1);
-renderRepeat(s);
-};
-})(btns[i]);
-}
-}
+  function renderRepeat() {
+    var items = data[step];
+    var fs    = FIELDS[step];
+    var h     = '<div id="rlist">';
+    for (var i = 0; i < items.length; i++) h += riHTML(items[i], i);
+    h += '</div><button class="ra" id="radd">+ Eintrag hinzufuegen</button>';
+    eF.innerHTML = h;
+    document.getElementById('radd').onclick = function() { addRep(); };
+    bindRemove();
+  }
 
-function addRep(s){
-saveRepeat(s);
-var blank={};
-for(var i=0;i<s.fields.length;i++)blank[s.fields[i].key]=’’;
-data[s.id].push(blank);
-renderRepeat(s);
-}
+  function riHTML(item, idx) {
+    var fs = FIELDS[step];
+    var canRm = data[step].length > 1;
+    var h = '<div class="rb" data-idx="' + idx + '">';
+    if (canRm) h += '<button class="rr" data-ridx="' + idx + '">&times;</button>';
+    h += '<div class="ri">';
+    for (var i = 0; i < fs.length; i++) {
+      var f = fs[i];
+      h += '<div class="fl"><label>' + f.label + '</label>' + rfHTML(f, item[f.key] || '', idx) + '</div>';
+    }
+    h += '</div></div>';
+    return h;
+  }
 
-function save(){var s=STEPS[step];if(s.rep)saveRepeat(s);else saveFlat(s);}
+  function bindRemove() {
+    var btns = document.querySelectorAll('.rr');
+    for (var i = 0; i < btns.length; i++) {
+      (function(btn) {
+        btn.onclick = function() {
+          saveRepeat();
+          var idx = parseInt(btn.getAttribute('data-ridx'));
+          data[step].splice(idx, 1);
+          renderRepeat();
+        };
+      })(btns[i]);
+    }
+  }
 
-function saveFlat(s){
-var els=eFields.querySelectorAll(’[data-key]’);
-for(var i=0;i<els.length;i++)data[s.id][els[i].getAttribute(‘data-key’)]=els[i].value;
-}
+  function addRep() {
+    saveRepeat();
+    var blank = {};
+    var fs = FIELDS[step];
+    for (var i = 0; i < fs.length; i++) blank[fs[i].key] = '';
+    data[step].push(blank);
+    renderRepeat();
+  }
 
-function saveRepeat(s){
-var els=eFields.querySelectorAll(’[data-idx]’);
-for(var i=0;i<els.length;i++){
-var el=els[i],idx=parseInt(el.getAttribute(‘data-idx’)),key=el.getAttribute(‘data-key’);
-if(data[s.id][idx]!==undefined)data[s.id][idx][key]=el.value;
-}
-}
+  function save() { if (REPEAT[step]) saveRepeat(); else saveFlat(); }
 
-function generate(){
-save();
-eErr.style.display=‘none’;
-eNext.disabled=true;
-eNext.innerHTML=’<span class="spinner"></span> Generiere…’;
-var regen=document.getElementById(‘btn-regen’);
-if(regen){regen.disabled=true;regen.textContent=’…’;}
+  function saveFlat() {
+    var els = eF.querySelectorAll('[data-key]');
+    for (var i = 0; i < els.length; i++) data[step][els[i].getAttribute('data-key')] = els[i].value;
+  }
 
-```
-var p=data.personal,s=data.summary,ex=data.experience,ed=data.education,sk=data.skills,e2=data.extras;
-var expTxt='',eduTxt='';
-for(var i=0;i<ex.length;i++)expTxt+='- '+ex[i].role+' bei '+ex[i].company+' ('+ex[i].period+'): '+ex[i].description+'\n';
-for(var i=0;i<ed.length;i++)eduTxt+='- '+ed[i].degree+' an '+ed[i].institution+' ('+ed[i].period+')\n';
+  function saveRepeat() {
+    var els = eF.querySelectorAll('[data-idx]');
+    for (var i = 0; i < els.length; i++) {
+      var el  = els[i];
+      var idx = parseInt(el.getAttribute('data-idx'));
+      var key = el.getAttribute('data-key');
+      if (data[step][idx] !== undefined) data[step][idx][key] = el.value;
+    }
+  }
 
-var prompt='Du bist ein professioneller HR-Berater. Erstelle einen Lebenslauf auf '+(e2.language||'Deutsch')+', Ton: '+(e2.tone||'professionell')+'.\n\n'
-  +'DATEN:\nName: '+p.name+' | Position: '+p.title+'\n'
-  +'Kontakt: '+p.email+' | '+p.phone+' | '+p.location+(p.linkedin?' | '+p.linkedin:'')+'\n'
-  +'Profil: '+s.summary+'\n'
-  +'Erfahrung:\n'+expTxt
-  +'Ausbildung:\n'+eduTxt
-  +'Fachkenntnisse: '+sk.technical+'\n'
-  +'Soft Skills: '+sk.soft+'\n'
-  +'Sprachen: '+sk.languages+'\n'
-  +(e2.certifications?'Zertifikate: '+e2.certifications+'\n':'')
-  +(e2.hobbies?'Interessen: '+e2.hobbies+'\n':'')
-  +'\nFORMAT (exakt Markdown):\n'
-  +'# [Name]\n**[Position]**\n[E-Mail] | [Tel] | [Ort]'+(p.linkedin?' | [LinkedIn]':'')+'\n\n'
-  +'## Profil\n[2-3 optimierte Saetze]\n\n'
-  +'## Berufserfahrung\n### [Rolle] - [Firma] | [Zeitraum]\n- [aktiv formuliert]\n\n'
-  +'## Ausbildung\n### [Abschluss] - [Institution] | [Zeitraum]\n\n'
-  +'## Kenntnisse und Sprachen\n- Fachlich: ...\n- Soft Skills: ...\n- Sprachen: ...\n'
-  +(e2.certifications?'\n## Zertifikate\n- ...':'')
-  +(e2.hobbies?'\n## Interessen\n[kurz]':'')
-  +'\n\nNur Lebenslauf, keine weiteren Texte.';
+  function generate() {
+    save();
+    eEr.style.display = 'none';
+    eBn.disabled = true;
+    eBn.innerHTML = '<span class="sp"></span> Generiere...';
+    var regen = document.getElementById('btn-regen');
+    if (regen) { regen.disabled = true; regen.textContent = '...'; }
 
-fetch('https://api.anthropic.com/v1/messages',{
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-})
-.then(function(r){return r.json();})
-.then(function(json){
-  md=(json.content||[]).map(function(b){return b.text||'';}).join('');
-  showResult();
-})
-.catch(function(){
-  eErr.textContent='Fehler beim Generieren. Bitte erneut versuchen.';
-  eErr.style.display='block';
-})
-.finally(function(){
-  eNext.disabled=false;
-  eNext.textContent='Lebenslauf erstellen';
-  var regen=document.getElementById('btn-regen');
-  if(regen){regen.disabled=false;regen.textContent='Neu';}
-});
-```
+    var p  = data[0];
+    var s  = data[1];
+    var ex = data[2];
+    var ed = data[3];
+    var sk = data[4];
+    var e2 = data[5];
 
-}
+    var expTxt = '';
+    for (var i = 0; i < ex.length; i++) expTxt += '- ' + ex[i].role + ' bei ' + ex[i].company + ' (' + ex[i].period + '): ' + ex[i].description + '\n';
+    var eduTxt = '';
+    for (var i = 0; i < ed.length; i++) eduTxt += '- ' + ed[i].degree + ' an ' + ed[i].institution + ' (' + ed[i].period + ')\n';
 
-function showResult(){
-eProgress.style.display=‘none’;
-eFormWrap.style.display=‘none’;
-eResultWrap.style.display=‘block’;
-buildTplList();
-renderCV();
-eResultWrap.scrollIntoView({behavior:‘smooth’});
-}
+    var prompt = 'Du bist ein professioneller HR-Berater. Erstelle einen Lebenslauf auf ' + (e2.language || 'Deutsch') + ', Ton: ' + (e2.tone || 'professionell') + '.\n\n'
+      + 'DATEN:\nName: ' + p.name + ' | Position: ' + p.title + '\n'
+      + 'Kontakt: ' + p.email + ' | ' + p.phone + ' | ' + p.location + (p.linkedin ? ' | ' + p.linkedin : '') + '\n'
+      + 'Profil: ' + s.summary + '\n'
+      + 'Erfahrung:\n' + expTxt
+      + 'Ausbildung:\n' + eduTxt
+      + 'Fachkenntnisse: ' + sk.technical + '\n'
+      + 'Soft Skills: ' + sk.soft + '\n'
+      + 'Sprachen: ' + sk.languages + '\n'
+      + (e2.certifications ? 'Zertifikate: ' + e2.certifications + '\n' : '')
+      + (e2.hobbies ? 'Interessen: ' + e2.hobbies + '\n' : '')
+      + '\nFORMAT (exakt Markdown):\n'
+      + '# [Name]\n**[Position]**\n[E-Mail] | [Tel] | [Ort]' + (p.linkedin ? ' | [LinkedIn]' : '') + '\n\n'
+      + '## Profil\n[2-3 optimierte Saetze]\n\n'
+      + '## Berufserfahrung\n### [Rolle] - [Firma] | [Zeitraum]\n- [aktiv formuliert]\n\n'
+      + '## Ausbildung\n### [Abschluss] - [Institution] | [Zeitraum]\n\n'
+      + '## Kenntnisse und Sprachen\n- Fachlich: ...\n- Soft Skills: ...\n- Sprachen: ...\n'
+      + (e2.certifications ? '\n## Zertifikate\n- ...' : '')
+      + (e2.hobbies ? '\n## Interessen\n[kurz]' : '')
+      + '\n\nNur Lebenslauf, keine weiteren Texte.';
 
-function showForm(){
-eResultWrap.style.display=‘none’;
-eProgress.style.display=‘flex’;
-eFormWrap.style.display=‘block’;
-}
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{role: 'user', content: prompt}]})
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(json) {
+      md = (json.content || []).map(function(b) { return b.text || ''; }).join('');
+      showResult();
+    })
+    .catch(function() {
+      eEr.textContent = 'Fehler beim Generieren. Bitte erneut versuchen.';
+      eEr.style.display = 'block';
+    })
+    .finally(function() {
+      eBn.disabled = false;
+      eBn.textContent = 'Lebenslauf erstellen';
+      var regen = document.getElementById('btn-regen');
+      if (regen) { regen.disabled = false; regen.textContent = 'Neu'; }
+    });
+  }
 
-function buildTplList(){
-var h=’’;
-for(var i=0;i<TPLS.length;i++){
-var t=TPLS[i],sel=t.id===tpl;
-h+=’<div class="tpl-card'+(sel?' sel':'')+'" data-tpl="'+t.id+'" style="border-color:'+(sel?t.acc:'#e8e4e0')+';box-shadow:'+(sel?'0 4px 16px '+t.acc+'25':'none')+'">’
-+’<div class="tpl-preview" style="background:'+t.bg+'">’
-+(t.dark?’<div class="tpl-exec-bar"></div>’:’’)
-+(t.sak?’<div class="tpl-sakura-bar"></div>’:’’)
-+’<div class="tpl-content" style="left:'+(t.sak?'18':'10')+'px;top:'+(t.dark?'30':'10')+'px">’
-+’<div class="tpl-h" style="width:55%;background:'+t.h+'"></div>’
-+’<div class="tpl-s" style="width:35%;background:'+t.h+'"></div>’
-+’<div class="tpl-l" style="background:'+t.ln+'"></div>’
-+’<div class="tpl-r" style="width:65%"></div><div class="tpl-r" style="width:45%"></div><div class="tpl-r" style="width:80%"></div>’
-+’</div></div>’
-+’<div class="tpl-foot" style="border-top:1px solid '+(sel?t.acc:'#f0ece8')+'">’
-+’<div class="tpl-name" style="color:'+(sel?t.acc:'#1a1a2e')+'">’+t.name+’</div>’
-+’<div class="tpl-desc">’+t.desc+’</div></div></div>’;
-}
-eTplList.innerHTML=h;
-var cards=eTplList.querySelectorAll(’.tpl-card’);
-for(var j=0;j<cards.length;j++){
-(function(card){
-card.onclick=function(){tpl=card.getAttribute(‘data-tpl’);buildTplList();renderCV();};
-})(cards[j]);
-}
-}
+  function showResult() {
+    eP.style.display  = 'none';
+    eFW.style.display = 'none';
+    eRW.style.display = 'block';
+    buildTplList();
+    renderCV();
+    eRW.scrollIntoView({behavior: 'smooth'});
+  }
 
-function parseCV(raw){
-if(!raw)return{name:’’,pos:’’,contact:’’,secs:[]};
-var lines=raw.split(’\n’),name=’’,pos=’’,contact=’’,secs=[],cur=null;
-for(var i=0;i<lines.length;i++){
-var l=lines[i].trim();
-if(!l)continue;
-if(l.indexOf(’# ‘)===0&&l.indexOf(’## ‘)<0){name=l.slice(2).trim();}
-else if(!pos&&l.indexOf(’**’)===0&&l.lastIndexOf(’**’)>1&&l.indexOf(’|’)<0){pos=l.replace(/**/g,’’).trim();}
-else if(!contact&&(l.indexOf(’@’)>=0||l.indexOf(’|’)>=0)){contact=l.replace(/**/g,’’).trim();}
-else if(l.indexOf(’## ‘)===0){cur={h:l.slice(3).trim(),items:[]};secs.push(cur);}
-else if(l.indexOf(’### ‘)===0){if(cur)cur.items.push({t:‘j’,v:l.slice(4).trim()});}
-else if(l.indexOf(’- ‘)===0||l.indexOf(’* ‘)===0){if(cur)cur.items.push({t:‘b’,v:l.slice(2).trim().replace(/**/g,’’)});}
-else if(l.indexOf(’**’)===0&&l.lastIndexOf(’**’)>1){if(cur)cur.items.push({t:‘j’,v:l.replace(/**/g,’’).trim()});}
-else{if(cur)cur.items.push({t:‘t’,v:l.replace(/**/g,’’)});}
-}
-return{name:name,pos:pos,contact:contact,secs:secs};
-}
+  function showForm() {
+    eRW.style.display = 'none';
+    eP.style.display  = 'flex';
+    eFW.style.display = 'block';
+  }
 
-function x(v){return(v||’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’);}
+  function buildTplList() {
+    var h = '';
+    for (var i = 0; i < TPLS.length; i++) {
+      var t   = TPLS[i];
+      var sel = t.id === tpl;
+      h += '<div class="tc' + (sel ? ' sel' : '') + '" data-tpl="' + t.id + '"'
+        + ' style="border-color:' + (sel ? t.acc : '#e8e4e0') + ';box-shadow:' + (sel ? '0 4px 16px ' + t.acc + '25' : 'none') + '">'
+        + '<div class="tp" style="background:' + t.bg + '">'
+        + (t.dark ? '<div class="teb"></div>' : '')
+        + (t.sak  ? '<div class="tsb"></div>' : '')
+        + '<div class="tco" style="left:' + (t.sak ? '18' : '10') + 'px;top:' + (t.dark ? '30' : '10') + 'px">'
+        + '<div class="th" style="width:55%;background:' + t.h + '"></div>'
+        + '<div class="tsu" style="width:35%;background:' + t.h + '"></div>'
+        + '<div class="tln" style="background:' + t.ln + '"></div>'
+        + '<div class="tr" style="width:65%"></div><div class="tr" style="width:45%"></div><div class="tr" style="width:80%"></div>'
+        + '</div></div>'
+        + '<div class="tf" style="border-top:1px solid ' + (sel ? t.acc : '#f0ece8') + '">'
+        + '<div class="tn" style="color:' + (sel ? t.acc : '#1a1a2e') + '">' + t.name + '</div>'
+        + '<div class="td">' + t.desc + '</div></div></div>';
+    }
+    eTL.innerHTML = h;
+    var cards = eTL.querySelectorAll('.tc');
+    for (var j = 0; j < cards.length; j++) {
+      (function(card) {
+        card.onclick = function() { tpl = card.getAttribute('data-tpl'); buildTplList(); renderCV(); };
+      })(cards[j]);
+    }
+  }
 
-function itemsHTML(items,pfx){
-var h=’’;
-for(var i=0;i<items.length;i++){
-var it=items[i];
-if(it.t===‘j’)h+=’<div class="'+pfx+' cj">’+x(it.v)+’</div>’;
-else if(it.t===‘b’)h+=’<div class="'+pfx+' cb">’+x(it.v)+’</div>’;
-else h+=’<div class="'+pfx+' ct">’+x(it.v)+’</div>’;
-}
-return h;
-}
+  function parseCV(raw) {
+    if (!raw) return {name: '', pos: '', contact: '', secs: []};
+    var lines = raw.split('\n'), name = '', pos = '', contact = '', secs = [], cur = null;
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i].trim();
+      if (!l) continue;
+      if (l.indexOf('# ') === 0 && l.indexOf('## ') < 0) { name = l.slice(2).trim(); }
+      else if (!pos && l.indexOf('**') === 0 && l.lastIndexOf('**') > 1 && l.indexOf('|') < 0) { pos = l.replace(/\*\*/g, '').trim(); }
+      else if (!contact && (l.indexOf('@') >= 0 || l.indexOf('|') >= 0)) { contact = l.replace(/\*\*/g, '').trim(); }
+      else if (l.indexOf('## ') === 0)  { cur = {h: l.slice(3).trim(), items: []}; secs.push(cur); }
+      else if (l.indexOf('### ') === 0) { if (cur) cur.items.push({t: 'j', v: l.slice(4).trim()}); }
+      else if (l.indexOf('- ') === 0 || l.indexOf('* ') === 0) { if (cur) cur.items.push({t: 'b', v: l.slice(2).trim().replace(/\*\*/g, '')}); }
+      else if (l.indexOf('**') === 0 && l.lastIndexOf('**') > 1) { if (cur) cur.items.push({t: 'j', v: l.replace(/\*\*/g, '').trim()}); }
+      else { if (cur) cur.items.push({t: 't', v: l.replace(/\*\*/g, '')}); }
+    }
+    return {name: name, pos: pos, contact: contact, secs: secs};
+  }
 
-function renderCV(){
-var cv=parseCV(md),h=’’;
-var head=’<div class="ch"><div class="cn">’+x(cv.name||‘Name’)+’</div>’+(cv.pos?’<div class="cp">’+x(cv.pos)+’</div>’:’’)+(cv.contact?’<div class="cc">’+x(cv.contact)+’</div>’:’’)+’</div>’;
+  function x(v) { return (v || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-```
-if(tpl==='klassisch'){
-  h='<div class="cv-k">'+head;
-  for(var i=0;i<cv.secs.length;i++)h+='<div class="cs"><div class="csh">'+x(cv.secs[i].h)+'</div>'+itemsHTML(cv.secs[i].items,'cv-k')+'</div>';
-  h+='</div>';
-}else if(tpl==='sakura'){
-  h='<div class="cv-s"><div class="ch"><div class="cbar"></div><div class="chi"><div class="cn">'+x(cv.name||'Name')+'</div>'+(cv.pos?'<div class="cp">'+x(cv.pos)+'</div>':'')+(cv.contact?'<div class="cc">'+x(cv.contact)+'</div>':'')+'</div><div class="cd">&#26360;</div></div>';
-  for(var i=0;i<cv.secs.length;i++)h+='<div class="cs"><div class="csh"><div class="cl1"></div><div class="cst">'+x(cv.secs[i].h)+'</div><div class="cl2"></div></div>'+itemsHTML(cv.secs[i].items,'cv-s')+'</div>';
-  h+='</div>';
-}else if(tpl==='executive'){
-  h='<div class="cv-e">'+head;
-  for(var i=0;i<cv.secs.length;i++)h+='<div class="cs"><div class="csh"><div class="cst">'+x(cv.secs[i].h)+'</div><div class="cl"></div></div>'+itemsHTML(cv.secs[i].items,'cv-e')+'</div>';
-  h+='</div>';
-}else{
-  h='<div class="cv-m"><div class="ch"><div class="cn">'+x(cv.name||'Name')+'</div>'+(cv.pos?'<div class="cp">'+x(cv.pos)+'</div>':'')+(cv.contact?'<div class="cc">'+x(cv.contact)+'</div>':'')+'</div>';
-  for(var i=0;i<cv.secs.length;i++)h+='<div class="cs"><div class="csh">'+x(cv.secs[i].h)+'</div><div class="cbody">'+itemsHTML(cv.secs[i].items,'cv-m')+'</div></div>';
-  h+='</div>';
-}
-eCVInner.innerHTML=h;
-```
+  function iHTML(items, p) {
+    var h = '';
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      if (it.t === 'j')      h += '<div class="' + p + ' vj">' + x(it.v) + '</div>';
+      else if (it.t === 'b') h += '<div class="' + p + ' vb">' + x(it.v) + '</div>';
+      else                   h += '<div class="' + p + ' vt">' + x(it.v) + '</div>';
+    }
+    return h;
+  }
 
-}
+  function renderCV() {
+    var cv  = parseCV(md);
+    var h   = '';
+    var hd  = '<div class="vh"><div class="vn">' + x(cv.name || 'Name') + '</div>'
+            + (cv.pos     ? '<div class="vp">' + x(cv.pos)     + '</div>' : '')
+            + (cv.contact ? '<div class="vc">' + x(cv.contact) + '</div>' : '')
+            + '</div>';
 
-function printCV(){
-var cv=parseCV(md);
-var baseCSS=‘body{max-width:740px;margin:20px auto;color:#111;line-height:1.7;padding:20px;font-size:13px}ul{padding-left:16px}li{margin-bottom:3px}h3{margin:10px 0 3px}’;
-var tplCSS=’’;
-if(tpl===‘klassisch’)tplCSS=‘body{font-family:EB Garamond,Georgia,serif}h1{font-size:26px;color:#2c3e50;border-bottom:3px double #2c3e50;padding-bottom:8px}h2{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-top:20px}’;
-else if(tpl===‘sakura’)tplCSS=‘body{font-family:Cormorant Garamond,Georgia,serif}h1{font-size:28px;font-weight:300;border-left:4px solid #e8a0a0;padding-left:14px}h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0;margin-top:20px}’;
-else if(tpl===‘executive’)tplCSS=‘body{font-family:Playfair Display,Georgia,serif}.hdr{background:#1a3a5c;color:#fff;padding:24px;margin:-20px -20px 20px}h1{color:#fff;font-size:26px;margin:0}h2{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#1a3a5c;border-bottom:1px solid #b8943f;padding-bottom:4px;margin-top:20px}’;
-else tplCSS=‘body{font-family:Georgia,serif}h1{font-size:30px;font-weight:400}h2{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-top:20px}’;
+    if (tpl === 'klassisch') {
+      h = '<div class="cvk">' + hd;
+      for (var i = 0; i < cv.secs.length; i++)
+        h += '<div class="vs"><div class="vsh">' + x(cv.secs[i].h) + '</div>' + iHTML(cv.secs[i].items, 'cvk') + '</div>';
+      h += '</div>';
 
-```
-var out=(md||'')
-  .replace(/^# (.+)$/gm, tpl==='executive'?'<div class="hdr"><h1>$1</h1>':'<h1>$1</h1>')
-  .replace(/^## (.+)$/gm,tpl==='executive'?'</div><h2>$1</h2>':'<h2>$1</h2>')
-  .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-  .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-  .replace(/^[-*] (.+)$/gm,'<li>$1</li>')
-  .split('\n').filter(function(l){return l.trim();}).join('\n');
+    } else if (tpl === 'sakura') {
+      h = '<div class="cvs"><div class="vh"><div class="vbar"></div><div class="vi">'
+        + '<div class="vn">' + x(cv.name || 'Name') + '</div>'
+        + (cv.pos     ? '<div class="vp">' + x(cv.pos)     + '</div>' : '')
+        + (cv.contact ? '<div class="vc">' + x(cv.contact) + '</div>' : '')
+        + '</div><div class="vd">&#26360;</div></div>';
+      for (var i = 0; i < cv.secs.length; i++)
+        h += '<div class="vs"><div class="vsh"><div class="vl1"></div><div class="vst">' + x(cv.secs[i].h) + '</div><div class="vl2"></div></div>' + iHTML(cv.secs[i].items, 'cvs') + '</div>';
+      h += '</div>';
 
-var w=window.open('','_blank');
-w.document.write('<!DOCTYPE html><html><head><title>Lebenslauf</title><style>'+baseCSS+tplCSS+'@media print{body{margin:0}}</style></head><body>'+out+'</body></html>');
-w.document.close();
-w.print();
-```
+    } else if (tpl === 'executive') {
+      h = '<div class="cve">' + hd;
+      for (var i = 0; i < cv.secs.length; i++)
+        h += '<div class="vs"><div class="vsh"><div class="vst">' + x(cv.secs[i].h) + '</div><div class="vl"></div></div>' + iHTML(cv.secs[i].items, 'cve') + '</div>';
+      h += '</div>';
 
-}
+    } else {
+      h = '<div class="cvm"><div class="vh"><div class="vn">' + x(cv.name || 'Name') + '</div>'
+        + (cv.pos     ? '<div class="vp">' + x(cv.pos)     + '</div>' : '')
+        + (cv.contact ? '<div class="vc">' + x(cv.contact) + '</div>' : '')
+        + '</div>';
+      for (var i = 0; i < cv.secs.length; i++)
+        h += '<div class="vs"><div class="vsh">' + x(cv.secs[i].h) + '</div><div class="vbo">' + iHTML(cv.secs[i].items, 'cvm') + '</div></div>';
+      h += '</div>';
+    }
+    eCI.innerHTML = h;
+  }
 
-buildProgress();
-renderStep(0);
+  function printCV() {
+    var baseCSS = 'body{max-width:740px;margin:20px auto;color:#111;line-height:1.7;padding:20px;font-size:13px}ul{padding-left:16px}li{margin-bottom:3px}h3{margin:10px 0 3px}';
+    var tplCSS  = '';
+    if (tpl === 'klassisch') {
+      tplCSS = 'body{font-family:EB Garamond,Georgia,serif}h1{font-size:26px;color:#2c3e50;border-bottom:3px double #2c3e50;padding-bottom:8px}h2{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#2c3e50;border-bottom:1px solid #2c3e50;padding-bottom:3px;margin-top:20px}';
+    } else if (tpl === 'sakura') {
+      tplCSS = 'body{font-family:Cormorant Garamond,Georgia,serif}h1{font-size:28px;font-weight:300;border-left:4px solid #e8a0a0;padding-left:14px}h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#e8a0a0;margin-top:20px}';
+    } else if (tpl === 'executive') {
+      tplCSS = 'body{font-family:Playfair Display,Georgia,serif}.hdr{background:#1a3a5c;color:#fff;padding:24px;margin:-20px -20px 20px}h1{color:#fff;font-size:26px;margin:0}h2{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#1a3a5c;border-bottom:1px solid #b8943f;padding-bottom:4px;margin-top:20px}';
+    } else {
+      tplCSS = 'body{font-family:Georgia,serif}h1{font-size:30px;font-weight:400}h2{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#aaa;margin-top:20px}';
+    }
+    var out = (md || '')
+      .replace(/^# (.+)$/gm,   tpl === 'executive' ? '<div class="hdr"><h1>$1</h1>' : '<h1>$1</h1>')
+      .replace(/^## (.+)$/gm,  tpl === 'executive' ? '</div><h2>$1</h2>' : '<h2>$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
+      .split('\n').filter(function(l) { return l.trim(); }).join('\n');
+    var w = window.open('', '_blank');
+    w.document.write('<!DOCTYPE html><html><head><title>Lebenslauf</title>'
+      + '<style>' + baseCSS + tplCSS + '@media print{body{margin:0}}</style>'
+      + '</head><body>' + out + '</body></html>');
+    w.document.close();
+    w.print();
+  }
+
+  buildProgress();
+  renderStep(0);
 });
 </script>
-
 </body>
 </html>
